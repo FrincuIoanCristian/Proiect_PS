@@ -1,5 +1,5 @@
 # Site de stiri sportive
-    Proiectul consta in realizarea unui site de stiri sportive in care utilizatori isi vor putea crea cont si sa se aboneze pentru a urmari anumite stiri. Acestia vor fi notificati in momentul in care apar noi stiri si isi vor putea gestion profilul. Adminul va fi responsabil pentru a adauga, sterge sau edita postarile.
+> Proiectul consta in realizarea unui site de stiri sportive in care utilizatori isi vor putea crea cont si sa se aboneze pentru a urmari anumite stiri. Acestia vor fi notificati in momentul in care apar noi stiri si isi vor putea gestion profilul. Adminul va fi responsabil pentru a adauga, sterge sau edita postarile.
 
 ## 1. Pagina Principala:
 
