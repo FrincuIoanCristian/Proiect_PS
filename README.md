@@ -73,5 +73,5 @@
 - relatia este de tipul __"many-to-many"__, deoarece o categorie poate apartine mai multor abonamente, iar un abonament poate fi asociat cu mai multe categorii.
 - aceasta relatie este intermediata de tabela de asociere __'Subscription'__, care contine cheile externe __'user_id'__ si __'category_id'__ pentru a face legatura intre utilizatori si categoriile de stiri la care sunt abonate.
 
-![Diagrama Bazei de date](diagram.png)
+![Diagrama Bazei de date](Poze/diagram.png)
 
