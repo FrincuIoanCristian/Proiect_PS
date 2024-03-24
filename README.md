@@ -15,12 +15,12 @@
 ### 3. Pagina Profilului Utilizatorului:
 
 - Fiecare utilizator va avea un profil personal unde isi poate gestiona informatiile personale si preferintele de abonare.
-- Aceasta pagină va oferi, de asemenea, optiuni pentru a modifica parola, adresa de email si alte setari ale contului.
+- Aceasta pagina va oferi, de asemenea, optiuni pentru a modifica parola, adresa de email si alte setari ale contului.
 
 ### 4. Gestionarea Stirilor de catre Admin:
 
 - Adminul site-ului va avea acces la o interfata de administrare dedicata pentru a adauga, edita si sterge articole.
-- Va exista, de asemenea, optiuni pentru a incarca imagini și a formata textul articolelor in mod corespunzator.
+- Va exista, de asemenea, optiuni pentru a incarca imagini si a formata textul articolelor in mod corespunzator.
 
 ### 5. Abonare la Stiri:
 
@@ -30,7 +30,7 @@
 ### 6. Notificari si Abonamente:
 
 - Utilizatorii vor putea sa isi gestioneze abonamentele si preferintele de notificare in cadrul profilului lor.
-- Aceasta va include optiuni pentru a activa sau dezactiva notificarile, a modifica frecvența acestora si a alege metoda de livrare preferata (email, notificări pe site etc.).
+- Aceasta va include optiuni pentru a activa sau dezactiva notificarile, iar daca acestea sunt activate se va trimite email.
 
 
 # Baza de date
@@ -70,8 +70,24 @@
 - relatia este de tipul __"one-to-many"__, deoarece o categorie de stiri poate contine mai multe stiri, dar o stire apartine doar unei categorii.
 - aceasta relatie este realizata prin intermediul campului __'category_id'__ din tabela __'News'__, care este o cheie externa ce face referire la campul __'category_id'__ din tabela __'Category'__.
 ### 3. Tabela Category si Tabela Subscription :
-- relatia este de tipul __"many-to-many"__, deoarece o categorie poate apartine mai multor abonamente, iar un abonament poate fi asociat cu mai multe categorii.
+- relatia este de tipul __"one-to-many"__, deoarece o categorie poate apartine mai multor abonamente, iar un abonament poate fi asociat cu o categorie.
 - aceasta relatie este intermediata de tabela de asociere __'Subscription'__, care contine cheile externe __'user_id'__ si __'category_id'__ pentru a face legatura intre utilizatori si categoriile de stiri la care sunt abonate.
 
-![Diagrama Bazei de date](Poze/diagram.png)
+![Diagrama Bazei de date](Poze/diagrama.png)
 
+# Implementare
+## USER
+### 1) User:
+- Clasa __'User'__ reprezinta modelul, entitatea utilizatorului in sistem, continand informatii precum nume de utilizator, parola, email, nume complet si path-ul spre o imagine ce reprezinta avarat-ul.
+- Am decalarat instante pentru obiect folosind adnotari astfel incat sa se genereze automat tabelul in baza de date odata cu rularea programului. 
+
+### 2) UserRepo:
+- Este o interfata care estinde __'JpaRepository'__ si permite interactiunea cu baza de date pentru operatiile legate de utilizatori.
+
+### 3) UserService:
+- Contine logica asociata utilizatorilor.
+- Intermediaza legatura intre controller si repository, gestionand operatiile cu utilizatorii si aplicand logica de validare si preluare de date.
+
+### 4) UserController:
+- Este responsabila pentru gestionarea cererilor __HTTP__ legate de utilizatori. 
+- Prin intermediul acestei clase se expun end-point-uri pentru operatiile de __GET, POST, PUT, DELETE__ si se gestioneaza datele primite si trimise intre client si server.

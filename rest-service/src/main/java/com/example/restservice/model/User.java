@@ -6,16 +6,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
-
     private String username;
     private String password;
     private String email;
     private String fullname;
     private String avatar;
 
-    public User() {
-        // Constructor implicit
-    }
+    public User() {}
 
     public User(long userId, String username, String password, String email, String fullname, String avatar) {
         this.userId = userId;
