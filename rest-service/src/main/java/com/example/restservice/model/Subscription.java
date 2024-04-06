@@ -1,26 +1,41 @@
 package com.example.restservice.model;
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
+@Table(name = "Subscription")
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subscription_id")
     private long subscriptionId;
+
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
-    private boolean notificationMethod;
 
-    public Subscription(){}
+    @Column(name = "startDate")
+    private Date startDate;
 
-    public Subscription(long subscriptionId, User user, Category category, boolean notificationMethod) {
-        this.subscriptionId = subscriptionId;
+    @Column(name = "amountPaid")
+    private double amountPaid;
+
+    @Column(name = "active")
+    private boolean active;
+
+    public Subscription() {}
+
+    public Subscription(User user, Category category, Date startDate, double amountPaid, boolean active) {
         this.user = user;
         this.category = category;
-        this.notificationMethod = notificationMethod;
+        this.startDate = startDate;
+        this.amountPaid = amountPaid;
+        this.active = active;
     }
 
     public long getSubscriptionId() {
@@ -47,11 +62,27 @@ public class Subscription {
         this.category = category;
     }
 
-    public boolean isNotificationMethod() {
-        return notificationMethod;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setNotificationMethod(boolean notificationMethod) {
-        this.notificationMethod = notificationMethod;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public double getAmountPaid() {
+        return amountPaid;
+    }
+
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
