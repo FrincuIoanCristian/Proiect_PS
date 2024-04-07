@@ -5,24 +5,32 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "News")
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "news_id")
     private long newsId;
+
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
+
+    @Column(name = "title")
     private String title;
-    @Column(columnDefinition = "TEXT")
+
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
+
+    @Column(name = "image")
     private String image;
-    @Temporal(TemporalType.DATE)
+
+    @Column(name = "publishedAt")
     private Date publishedAt;
 
-    public News(){}
+    public News() {}
 
-    public News(long newsId, Category category, String title, String content, String image, Date publishedAt) {
-        this.newsId = newsId;
+    public News(Category category, String title, String content, String image, Date publishedAt) {
         this.category = category;
         this.title = title;
         this.content = content;

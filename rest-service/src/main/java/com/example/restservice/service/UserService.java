@@ -47,7 +47,7 @@ public class UserService {
             user.setUsername(newDetails.getUsername());
             user.setPassword(newDetails.getPassword());
             user.setEmail(newDetails.getEmail());
-            user.setFullname(newDetails.getFullname());
+            user.setFullName(newDetails.getFullName());
             user.setAvatar(newDetails.getAvatar());
             return userRepository.save(user);
         }else{
