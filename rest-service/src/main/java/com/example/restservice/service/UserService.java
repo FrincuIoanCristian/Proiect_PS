@@ -24,7 +24,7 @@ public class UserService {
      * @param id    ID-ul utilizatorului cautat.
      * @return  Utilizatorul cu ID-ul respectiv daca exista, altfel returneaza 'null'.
      */
-    public User getUser(long id) {
+    public User getUserById(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -62,5 +62,9 @@ public class UserService {
      */
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

@@ -73,4 +73,15 @@ public class Category {
     public void setSubscriptionCost(Double subscriptionCost) {
         this.subscriptionCost = subscriptionCost;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", subscriptionCost=" + subscriptionCost +
+                ", newsList=" + newsList +
+                ", subscriptions=" + subscriptions +
+                '}';
+    }
 }

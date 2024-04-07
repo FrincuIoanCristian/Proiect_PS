@@ -102,3 +102,7 @@
 - __'UserController'__, __'NewsController'__, __'CategoryController'__ si __'SubscriptionController'__.
 - Este responsabila pentru gestionarea cererilor de tipul __HTTP__.
 - Prin intermediul acestei clase se expun end-point-uri pentru operatiile de __GET, POST, PUT, DELETE__ si se gestioneaza datele primite si trimise intre client si server.
+
+## EndPoint-uri noi:
+- __/login__ - cauta un user dupa username si verifica daca exista. In caz ca exista verifica daca parole sunt la fel si returneaza mesajul de "Autentificare reusita", altfel "Autentificare esuata".
+

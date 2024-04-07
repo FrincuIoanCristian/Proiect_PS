@@ -5,6 +5,7 @@ import com.example.restservice.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class CategoryController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategory(@PathVariable long id) {
-        Category category = categoryService.getCategory(id);
+        Category category = categoryService.getCategoryById(id);
         if(category != null){
             return new ResponseEntity<>(category, HttpStatus.OK);
         }else{
@@ -49,6 +50,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<?> deleteCategory(@PathVariable long id){
         categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.OK);

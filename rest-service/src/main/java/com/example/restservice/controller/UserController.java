@@ -1,10 +1,12 @@
 package com.example.restservice.controller;
 
+import com.example.restservice.model.Subscription;
 import com.example.restservice.model.User;
 import com.example.restservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") long id) {
-        User user = userService.getUser(id);
+        User user = userService.getUserById(id);
         if(user != null){
             return new ResponseEntity<>(user,HttpStatus.OK);
         }else{
@@ -74,8 +76,32 @@ public class UserController {
      * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
      */
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<?> deleteUser(@PathVariable long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+        User existingUser = userService.getUserByUsername(user.getUsername());
+        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+            return new ResponseEntity<>("Autentificare reușită", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Autentificare eșuată", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/{id}/subscriptions")
+    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable("id") long userId) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        List<Subscription> subscriptions = user.getSubscriptions();
+        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
+    }
+
+
 }

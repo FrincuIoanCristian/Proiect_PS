@@ -85,4 +85,16 @@ public class News {
     public void setPublishedAt(LocalDate publishedAt) {
         this.publishedAt = publishedAt;
     }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "newsId=" + newsId +
+                ", category=" + category +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", publishedAt=" + publishedAt +
+                '}';
+    }
 }

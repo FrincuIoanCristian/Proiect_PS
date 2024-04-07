@@ -11,6 +11,7 @@ import java.util.List;
 public class SubscriptionService {
     @Autowired
     private final SubscriptionRepository subscriptionRepository;
+
     public SubscriptionService(SubscriptionRepository subscriptionRepository) {
         this.subscriptionRepository = subscriptionRepository;
     }
@@ -18,7 +19,7 @@ public class SubscriptionService {
     public List<Subscription> getAllSubscriptions() {
         return subscriptionRepository.findAll();
     }
-    public Subscription getSubscription(long id){
+    public Subscription getSubscriptionById(long id){
         return subscriptionRepository.findById(id).orElse(null);
     }
 
@@ -37,5 +38,9 @@ public class SubscriptionService {
     }
     public void deleteSubscription(long id){
         subscriptionRepository.deleteById(id);
+    }
+
+    public List<Subscription> getSubscriptionsByUserId(Long userId) {
+        return subscriptionRepository.findByUserId(userId);
     }
 }

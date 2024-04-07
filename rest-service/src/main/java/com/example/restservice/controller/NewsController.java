@@ -5,6 +5,7 @@ import com.example.restservice.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class NewsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<News> getNews(@PathVariable long id) {
-        News news = newsService.getNews(id);
+        News news = newsService.getNewsById(id);
         if(news != null){
             return new ResponseEntity<>(news, HttpStatus.OK);
         }else{
@@ -50,8 +51,14 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<?> deleteNews(@PathVariable long id){
         newsService.deleteNews(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/news")
+    public List<News> getNewsByCategoryName(@RequestParam String categoryName) {
+        return newsService.getNewsByCategoryName(categoryName);
     }
 }

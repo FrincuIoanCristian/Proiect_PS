@@ -85,4 +85,16 @@ public class Subscription {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "subscriptionId=" + subscriptionId +
+                ", user=" + user +
+                ", category=" + category +
+                ", startDate=" + startDate +
+                ", amountPaid=" + amountPaid +
+                ", active=" + active +
+                '}';
+    }
 }
