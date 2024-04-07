@@ -1,6 +1,8 @@
 package com.example.restservice.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,21 +13,23 @@ public class Category {
     @Column(name = "category_id")
     private long categoryId;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<News> newsList;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Subscription> subscriptions;
-
-    @Column(name = "categoryName")
+    @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "subscriptionCost")
-    private double subscriptionCost;
+    @Column(name = "subscription_cost")
+    private Double subscriptionCost;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<News> newsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Subscription> subscriptions = new ArrayList<>();
 
     public Category() {}
 
-    public Category(String categoryName, double subscriptionCost) {
+    public Category(String categoryName, Double subscriptionCost) {
         this.categoryName = categoryName;
         this.subscriptionCost = subscriptionCost;
     }
@@ -62,11 +66,22 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public double getSubscriptionCost() {
+    public Double getSubscriptionCost() {
         return subscriptionCost;
     }
 
-    public void setSubscriptionCost(double subscriptionCost) {
+    public void setSubscriptionCost(Double subscriptionCost) {
         this.subscriptionCost = subscriptionCost;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", subscriptionCost=" + subscriptionCost +
+                ", newsList=" + newsList +
+                ", subscriptions=" + subscriptions +
+                '}';
     }
 }

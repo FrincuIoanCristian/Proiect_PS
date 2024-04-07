@@ -2,7 +2,7 @@ package com.example.restservice.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "News")
@@ -13,7 +13,7 @@ public class News {
     private long newsId;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "title")
@@ -25,12 +25,12 @@ public class News {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "publishedAt")
-    private Date publishedAt;
+    @Column(name = "published_at")
+    private LocalDate publishedAt;
 
     public News() {}
 
-    public News(Category category, String title, String content, String image, Date publishedAt) {
+    public News(Category category, String title, String content, String image, LocalDate publishedAt) {
         this.category = category;
         this.title = title;
         this.content = content;
@@ -78,11 +78,23 @@ public class News {
         this.image = image;
     }
 
-    public Date getPublishedAt() {
+    public LocalDate getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(Date publishedAt) {
+    public void setPublishedAt(LocalDate publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "newsId=" + newsId +
+                ", category=" + category +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", publishedAt=" + publishedAt +
+                '}';
     }
 }

@@ -5,22 +5,26 @@ import com.example.restservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
     private final UserRepository userRepository;
-
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
     /**
      * Returneaza un utilizator dupa un ID.
      *
      * @param id    ID-ul utilizatorului cautat.
      * @return  Utilizatorul cu ID-ul respectiv daca exista, altfel returneaza 'null'.
      */
-    public User getUser(long id) {
+    public User getUserById(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -38,18 +42,14 @@ public class UserService {
      * Actualizeaza un user cu ID-ul precizat, daca acesta exista.
      *
      * @param id    ID-ul utilizatorului caruia dorim sa actualizam detaliile.
-     * @param newDetails    Detaliile cu care dorim sa actualizam utilizatorul.
+     * @param updateUser    Detaliile cu care dorim sa actualizam utilizatorul.
      * @return  Utilizatorul cu noile detalii actualizate.
      */
-    public User updateUser(long id, User newDetails){
+    public User updateUser(long id, User updateUser){
         User user = userRepository.findById(id).orElse(null);
         if(user != null){
-            user.setUsername(newDetails.getUsername());
-            user.setPassword(newDetails.getPassword());
-            user.setEmail(newDetails.getEmail());
-            user.setFullName(newDetails.getFullName());
-            user.setAvatar(newDetails.getAvatar());
-            return userRepository.save(user);
+            updateUser.setUserId(user.getUserId());
+            return userRepository.save(updateUser);
         }else{
             return null;
         }
@@ -62,5 +62,9 @@ public class UserService {
      */
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.restservice.controller;
+package com.example.restservice;
 
 // Importing required classes
 import org.springframework.stereotype.Controller;
