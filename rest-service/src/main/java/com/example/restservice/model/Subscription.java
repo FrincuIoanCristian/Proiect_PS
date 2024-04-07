@@ -1,7 +1,7 @@
 package com.example.restservice.model;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Subscription")
@@ -12,25 +12,25 @@ public class Subscription {
     private long subscriptionId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name = "startDate")
-    private Date startDate;
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
-    @Column(name = "amountPaid")
-    private double amountPaid;
+    @Column(name = "amount_paid")
+    private Double amountPaid;
 
     @Column(name = "active")
     private boolean active;
 
     public Subscription() {}
 
-    public Subscription(User user, Category category, Date startDate, double amountPaid, boolean active) {
+    public Subscription(User user, Category category, LocalDate startDate, Double amountPaid, boolean active) {
         this.user = user;
         this.category = category;
         this.startDate = startDate;
@@ -62,19 +62,19 @@ public class Subscription {
         this.category = category;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public double getAmountPaid() {
+    public Double getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(double amountPaid) {
+    public void setAmountPaid(Double amountPaid) {
         this.amountPaid = amountPaid;
     }
 

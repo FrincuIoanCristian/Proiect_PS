@@ -1,6 +1,8 @@
 package com.example.restservice.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,8 +11,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Subscription> subscriptions;
 
     @Column(name = "username")
     private String username;
@@ -20,18 +20,22 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "fullName")
+    @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "avatar")
     private String avatar;
 
     @Column(name = "balance")
-    private double balance;
+    private Double balance;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Subscription> subscriptions = new ArrayList<>();
 
     public User() {}
 
-    public User(String username, String password, String email, String fullName, String avatar, double balance) {
+    public User(String username, String password, String email, String fullName, String avatar, Double balance) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -96,11 +100,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 }

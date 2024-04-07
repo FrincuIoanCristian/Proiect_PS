@@ -26,6 +26,8 @@
 
 - Utilizatorii inregistrati vor putea sa se aboneze la diferite categorii de stiri sportive, cum ar fi fotbal, baschet, tenis etc.
 - Aceasta optiune de abonare va permite utilizatorilor sa primeasca notificari prin email sau alte metode de comunicare in momentul in care sunt publicate noi articole in categoriile la care sunt abonati.
+- Fiecare categorie de abonament va avea un pret, iar pentru a se abona, utilizatorul va trebui sa plateasca si i se va lua bani periodic pentru a-si pastra abonamentul.
+- Daca utilizatorul nu va mai avea destui bani i se va anula abonamentul.
 
 ### 6. Notificari si Abonamente:
 
@@ -42,10 +44,12 @@
 * __email__ _(varchar)_: Adresa de email a utilizatorului.
 * __full_name__ _(varchar)_: Numele complet al utilizatorului.
 * __avatar__ _(varchar)_: Reprezinta path-ul pana la imagine
+* __balance__ _(double)_ : Balanta utilizatorului
 
-### 2. Tabela Categoty :
+### 2. Tabela Category :
 * __category_id__ _(int, cheie primara, auto-increment)_: Identificator unic pentru fiecare categorie de stiri.
 * __category_name__ _(varchar)_: Numele categoriei de stiri (ex: fotbal, baschet, tenis etc.).
+* __subscription_cost__ _(double)_: Reprezinta pretul abonamentului pentru categoria respectiva
 
 
 ### 3. Tabela News :
@@ -60,7 +64,9 @@
 * __subscription_id__ _(int, cheie primara, auto-increment)_: Identificator unic pentru fiecare abonament.
 * __user_id__ _(int, cheie externa)_: Legatura catre utilizatorul din tabela Utilizatori.
 * __category_id__ _(int, cheie externa)_: Legatura catre categoria din tabela Categorii stiri.
-* __notification_method__ _(bool)_: Metoda de notificare dorita (email sau deloc).
+* __start_date__ _(date)_ : Data cand s-a creat abonamentul. 
+* __amount_paid__ _(double)_ : Costul abonamentului.
+* __active__ _(bool)_: indica daca abonamentul este activat sau nu.
 
 ## Relatii
 ### 1. Tabela User si Tabela Subscription :
@@ -73,21 +79,26 @@
 - relatia este de tipul __"one-to-many"__, deoarece o categorie poate apartine mai multor abonamente, iar un abonament poate fi asociat cu o categorie.
 - aceasta relatie este intermediata de tabela de asociere __'Subscription'__, care contine cheile externe __'user_id'__ si __'category_id'__ pentru a face legatura intre utilizatori si categoriile de stiri la care sunt abonate.
 
-![Diagrama Bazei de date](Poze/diagrama.png)
+![Diagrama Bazei de date](Poze/new_diagram.png)
 
 # Implementare
-## USER
-### 1) User:
-- Clasa __'User'__ reprezinta modelul, entitatea utilizatorului in sistem, continand informatii precum nume de utilizator, parola, email, nume complet si path-ul spre o imagine ce reprezinta avarat-ul.
-- Am decalarat instante pentru obiect folosind adnotari astfel incat sa se genereze automat tabelul in baza de date odata cu rularea programului. 
+## Model
+- Aici am implementate clasele __'User'__, __'Category'__, __'News'__ si __'Subscription'__.
+- Acestea reprezinta modelele in care si am declarate campurile pentru ce doresc sa memorez in baza de date.
+- Am folosit adnotari pentru a crea automat tabele in baza de date. Pentru fiecare tabel id-ul este setat ca cheie primara si este auto-incrementat.
+- Am si relatii intre tabele si anume unele campuri precum user_id, category_id sunt chei secundare pentru alte tabele precum Subscription si News.
+- Pentru tabelele 'User' si 'Category' am declarat si niste liste in care memorez obiectele cu care este asociat si asupra carora se aplica automat toate operatiile in momentul in care se aplica pe obiectul principal. Spre exemplu daca sterg un user se vor sterge automat toate abonamentele asociate cu user-ul respectiv.  
 
-### 2) UserRepo:
-- Este o interfata care estinde __'JpaRepository'__ si permite interactiunea cu baza de date pentru operatiile legate de utilizatori.
+## Repository
+- Aici am implementat interfete care estind __'JpaRepository'__ si permit interactiunea cu baza de date pentru toate operatiile.
+- Am creat pentru fiecare tabel __'UserRepository'__, __'NewsRepository'__, __'CategoryRepository'__ si __'SubscriptionRepository'__.
 
-### 3) UserService:
-- Contine logica asociata utilizatorilor.
-- Intermediaza legatura intre controller si repository, gestionand operatiile cu utilizatorii si aplicand logica de validare si preluare de date.
+## Service
+- __'UserService'__, __'NewsService'__, __'CategoryService'__ si __'SubscriptionService'__.
+- Serveste ca o legatura intre straturile de prezentare (cum ar fi Controller-ul) si straturile de acces la date (cum ar fi Repository-ul).
+- Este responsabil pentru implementarea logicii de afaceri, manipularea datelor si comunicarea cu repository-urile pentru a obtine sau modifica datele.
 
-### 4) UserController:
-- Este responsabila pentru gestionarea cererilor __HTTP__ legate de utilizatori. 
+## Controller
+- __'UserController'__, __'NewsController'__, __'CategoryController'__ si __'SubscriptionController'__.
+- Este responsabila pentru gestionarea cererilor de tipul __HTTP__.
 - Prin intermediul acestei clase se expun end-point-uri pentru operatiile de __GET, POST, PUT, DELETE__ si se gestioneaza datele primite si trimise intre client si server.
