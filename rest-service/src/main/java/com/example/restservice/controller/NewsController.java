@@ -19,11 +19,20 @@ public class NewsController {
         this.newsService = newsService;
     }
 
+    /**
+     * Obtin toate stirile
+     * @return o lisat cu toate stirile
+     */
     @GetMapping
     public List<News> getAllNews() {
         return newsService.getAllNews();
     }
 
+    /**
+     * Obtin o stire dupa un id
+     * @param id id-ul stirii cautate
+     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<News> getNews(@PathVariable long id) {
         News news = newsService.getNewsById(id);
@@ -34,12 +43,23 @@ public class NewsController {
         }
     }
 
+    /**
+     * Creaza o stire noua
+     * @param news detaliile noi stiri
+     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     */
     @PostMapping
     public ResponseEntity<News> createNews(@RequestBody News news){
         News createdNews = newsService.createNews(news);
         return new ResponseEntity<>(createdNews, HttpStatus.CREATED);
     }
 
+    /**
+     * Actualizeaza o stire dupa un id
+     * @param id id-ul stirii ce doresc sa o actualizez
+     * @param newDetails noile detalii ale stirii
+     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<News> updateNews(@PathVariable long id, @RequestBody News newDetails){
         News updateNews = newsService.updateNews(id,newDetails);
@@ -50,6 +70,11 @@ public class NewsController {
         }
     }
 
+    /**
+     * Sterge o stire din tabela dupa un id
+     * @param id id-ul stirii cautate
+     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     */
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deleteNews(@PathVariable long id){
@@ -57,7 +82,12 @@ public class NewsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/news")
+    /**
+     * Genereaza toate stirile ce apartin unei categorii cu numele indicat
+     * @param categoryName numele categoriei pentru care se cauta stiri
+     * @return o lista cu stirile gasite
+     */
+    @GetMapping("/getNewsByCategoryName")
     public List<News> getNewsByCategoryName(@RequestParam String categoryName) {
         return newsService.getNewsByCategoryName(categoryName);
     }

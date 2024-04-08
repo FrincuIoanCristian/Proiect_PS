@@ -19,10 +19,20 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    /**
+     * Obtine toate categoriile
+     * @return o lista cu toate categoriile
+     */
     @GetMapping
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }
+
+    /**
+     * Obtine o categorie dupa un id
+     * @param id id-ul categoriei cautate
+     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategory(@PathVariable long id) {
         Category category = categoryService.getCategoryById(id);
@@ -33,12 +43,23 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Creaza o categorie noua.
+     * @param category detaliile noii categorii.
+     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     */
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category){
         Category createCategory = categoryService.createCategory(category);
         return new ResponseEntity<>(createCategory,HttpStatus.CREATED);
     }
 
+    /**
+     * Actualizeaza o categorie existenta, cautata dupa id
+     * @param id id-ul categoriei cautate
+     * @param newDetails noile detalii
+     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable long id, @RequestBody Category newDetails){
         Category updateCategory = categoryService.updateCategory(id,newDetails);
@@ -49,6 +70,11 @@ public class CategoryController {
         }
     }
 
+    /**
+     * Sterge o categorie dupa un id
+     * @param id id-ul categorie ce doresc sa o sterg
+     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     */
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deleteCategory(@PathVariable long id){

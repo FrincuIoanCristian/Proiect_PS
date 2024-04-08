@@ -20,6 +20,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Obtine toti utilizatori.
+     * @return  o lista cu toti utilizatori
+     */
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
@@ -82,6 +86,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Endpoint pentru login, primesc un username si o parola si caut utilizatorul cu userul repectiv si verific daca exista
+     * si parolele sunt egale
+     * @param user contine username-ul si parola pentru care doresc sa fac login
+     * @return  Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         User existingUser = userService.getUserByUsername(user.getUsername());
@@ -92,6 +102,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Genereaza toate abonamentele unui user dupa un id
+     * @param userId    id-ul pentru care caut
+     * @return  Un obiect ResponseEntity care contine lista abonamentelor si statusul HTTP corespunzator.
+     */
     @GetMapping("/{id}/subscriptions")
     public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable("id") long userId) {
         User user = userService.getUserById(userId);
