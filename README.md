@@ -105,4 +105,5 @@
 
 ## EndPoint-uri noi:
 - __/login__ - cauta un user dupa username si verifica daca exista. In caz ca exista verifica daca parole sunt la fel si returneaza mesajul de "Autentificare reusita", altfel "Autentificare esuata".
-
+- __/getSubscriptionsByUserId/{id}__ - returneaza o lista cu toate abonamentele unui user pe care il cauta dupa id.
+- __news/getNewsByCategoryName__ = returneaza o lista de stiri care apartin unei categorii cu numele cautat.
