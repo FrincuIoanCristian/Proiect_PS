@@ -1,6 +1,7 @@
 package com.example.restservice.controller;
 
 import com.example.restservice.model.News;
+import com.example.restservice.model.User;
 import com.example.restservice.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,5 +91,10 @@ public class NewsController {
     @GetMapping("/getNewsByCategoryName")
     public List<News> getNewsByCategoryName(@RequestParam String categoryName) {
         return newsService.getNewsByCategoryName(categoryName);
+    }
+
+    @GetMapping("/getUsersByNewsId/{id}")
+    public List<User> getUsersByNewsId(@PathVariable long id){
+        return newsService.getUsersByNewsId(id);
     }
 }
