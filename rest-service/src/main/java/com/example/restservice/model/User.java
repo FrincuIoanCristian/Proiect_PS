@@ -1,12 +1,18 @@
 package com.example.restservice.model;
+import com.example.restservice.observer.EmailDetails;
+import com.example.restservice.observer.EmailSender;
+import com.example.restservice.observer.NewsObserver;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clasa care reprezintă un utilizator în sistem.
+ */
 @Entity
-public class User {
+public class User implements NewsObserver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -120,5 +126,21 @@ public class User {
                 ", balance=" + balance +
                 ", subscriptions=" + subscriptions +
                 '}';
+    }
+
+    /**
+     * Metoda de notificare a utilizatorului despre o știre nouă.
+     *
+     * @param news Știrea nouă
+     */
+    @Override
+    public void update(News news) {
+        System.out.println(this.username + " stire noua: " + news.getTitle());
+        EmailSender emailSender = new EmailSender();
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setSubject("Stire noua");
+        emailDetails.setMsgBody(news.getTitle());
+        emailDetails.setRecipient(this.email);
+        emailSender.sendSimpleMail(emailDetails);
     }
 }

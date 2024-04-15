@@ -6,14 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // Annotation
 @SpringBootApplication
-
-// Main class
 public class DemoApplication {
 
-    // Main driver method
     public static void main(String[] args)
     {
-
         SpringApplication.run(DemoApplication.class, args);
     }
+
 }

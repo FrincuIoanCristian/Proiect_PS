@@ -107,3 +107,13 @@
 - __/login__ - cauta un user dupa username si verifica daca exista. In caz ca exista verifica daca parole sunt la fel si returneaza mesajul de "Autentificare reusita", altfel "Autentificare esuata".
 - __/getSubscriptionsByUserId/{id}__ - returneaza o lista cu toate abonamentele unui user pe care il cauta dupa id.
 - __news/getNewsByCategoryName__ = returneaza o lista de stiri care apartin unei categorii cu numele cautat.
+
+## Observer Pattern
+- Pentru observer pattern am ales sa notific toti utilizatori care au abonamente la categoria din care face parte stirea nou introdusa/modificata.
+- Am creat o interfata __NewsObserver__ care contine metoda __update__ ce va fi apelata pentru toti utilizatori.
+- Clasa __User__ va implementa interfata __NewsObserver__, deci va implementa metoda __update__ in care vom pregati datele pentru a trimite mail.
+- __EmailDetails__ este o clasa care va contine detaliile mail-ului:
+    * recipient : email-ul utilizatorului caruia ii trimitem mail
+    * msgBody : reprezinta continutul mail-ului
+    * subject : reprezinta subiectul 
+   
