@@ -1,9 +1,17 @@
 package com.example.restservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "News")
 public class News {
@@ -22,79 +30,34 @@ public class News {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "image")
-    private String image;
-
     @Column(name = "published_at")
     private LocalDate publishedAt;
 
-    public News() {}
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Image> images = new ArrayList<>();
 
-    public News(Category category, String title, String content, String image, LocalDate publishedAt) {
-        this.category = category;
-        this.title = title;
-        this.content = content;
-        this.image = image;
-        this.publishedAt = publishedAt;
+    public News() {
     }
 
-    public long getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(long newsId) {
+    public News(long newsId, Category category, String title, String content, LocalDate publishedAt) {
         this.newsId = newsId;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public LocalDate getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(LocalDate publishedAt) {
         this.publishedAt = publishedAt;
     }
 
     @Override
-    public String toString() {
-        return "News{" +
-                "newsId=" + newsId +
-                ", category=" + category +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
-                ", publishedAt=" + publishedAt +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return newsId == news.newsId && Objects.equals(category, news.category) && Objects.equals(title, news.title) && Objects.equals(content, news.content) && Objects.equals(publishedAt, news.publishedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(newsId, category, title, content, publishedAt);
     }
 }

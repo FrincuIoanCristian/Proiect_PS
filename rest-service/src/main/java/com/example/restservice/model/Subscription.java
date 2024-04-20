@@ -1,8 +1,14 @@
 package com.example.restservice.model;
+
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "Subscription")
 public class Subscription {
@@ -25,76 +31,27 @@ public class Subscription {
     @Column(name = "amount_paid")
     private Double amountPaid;
 
-    @Column(name = "active")
-    private boolean active;
-
-    public Subscription() {}
-
-    public Subscription(User user, Category category, LocalDate startDate, Double amountPaid, boolean active) {
-        this.user = user;
-        this.category = category;
-        this.startDate = startDate;
-        this.amountPaid = amountPaid;
-        this.active = active;
+    public Subscription() {
     }
 
-    public long getSubscriptionId() {
-        return subscriptionId;
-    }
-
-    public void setSubscriptionId(long subscriptionId) {
+    public Subscription(long subscriptionId, User user, Category category, LocalDate startDate) {
         this.subscriptionId = subscriptionId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
         this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
-    }
-
-    public Double getAmountPaid() {
-        return amountPaid;
-    }
-
-    public void setAmountPaid(Double amountPaid) {
-        this.amountPaid = amountPaid;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+        this.amountPaid = category.getSubscriptionCost();
     }
 
     @Override
-    public String toString() {
-        return "Subscription{" +
-                "subscriptionId=" + subscriptionId +
-                ", user=" + user +
-                ", category=" + category +
-                ", startDate=" + startDate +
-                ", amountPaid=" + amountPaid +
-                ", active=" + active +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subscription that = (Subscription) o;
+        return subscriptionId == that.subscriptionId && Objects.equals(user, that.user) && Objects.equals(category, that.category) && Objects.equals(startDate, that.startDate) && Objects.equals(amountPaid, that.amountPaid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subscriptionId, user, category, startDate, amountPaid);
     }
 }

@@ -1,10 +1,16 @@
 package com.example.restservice.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "Category")
 public class Category {
@@ -27,61 +33,25 @@ public class Category {
     @JsonIgnore
     private List<Subscription> subscriptions = new ArrayList<>();
 
-    public Category() {}
-
-    public Category(String categoryName, Double subscriptionCost) {
-        this.categoryName = categoryName;
-        this.subscriptionCost = subscriptionCost;
+    public Category() {
     }
 
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
+    public Category(long categoryId, String categoryName, Double subscriptionCost) {
         this.categoryId = categoryId;
-    }
-
-    public List<News> getNewsList() {
-        return newsList;
-    }
-
-    public void setNewsList(List<News> newsList) {
-        this.newsList = newsList;
-    }
-
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(List<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public Double getSubscriptionCost() {
-        return subscriptionCost;
-    }
-
-    public void setSubscriptionCost(Double subscriptionCost) {
         this.subscriptionCost = subscriptionCost;
     }
 
     @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", subscriptionCost=" + subscriptionCost +
-                ", newsList=" + newsList +
-                ", subscriptions=" + subscriptions +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return categoryId == category.categoryId && Objects.equals(categoryName, category.categoryName) && Objects.equals(subscriptionCost, category.subscriptionCost) && Objects.equals(newsList, category.newsList) && Objects.equals(subscriptions, category.subscriptions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryId, categoryName, subscriptionCost, newsList, subscriptions);
     }
 }
