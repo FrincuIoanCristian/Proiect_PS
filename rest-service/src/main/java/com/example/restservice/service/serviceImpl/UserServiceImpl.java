@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserContract userContract;
+
     @Autowired
     public UserServiceImpl(UserContract userContract) {
         this.userContract = userContract;
@@ -55,25 +56,25 @@ public class UserServiceImpl implements UserService {
     /**
      * Metoda care actualizeaza un utilizator existent în sistem.
      *
-     * @param id ID-ul utilizatorului care urmează să fie actualizat
+     * @param id         ID-ul utilizatorului care urmează să fie actualizat
      * @param updateUser Utilizatorul actualizat
      * @return Utilizatorul actualizat sau null dacă nu există un utilizator cu ID-ul specificat
      */
     @Override
-    public User updateUser(Long id,User updateUser) {
+    public User updateUser(Long id, User updateUser) {
         User user = userContract.findById(id).orElse(null);
-        if(user != null){
+        if (user != null) {
             updateUser.setUserId(user.getUserId());
             return userContract.save(updateUser);
-        }else{
+        } else {
             return null;
         }
     }
 
-        /**
+    /**
      * Sterge un utilizator existent dupa un ID.
      *
-     * @param userId    ID-ul utilizatoului ce trebuie sters.
+     * @param userId ID-ul utilizatoului ce trebuie sters.
      */
     @Override
     public void deleteUser(Long userId) {
@@ -82,6 +83,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Returneaza un utilizator dupa username
+     *
      * @param username usename-ul utilizatorului cautat
      * @return utilizatorul gasit
      */
