@@ -24,7 +24,7 @@ public class CategoryData implements CategoryContract {
     }
 
     @Override
-    public Optional<Category> findById(long id) {
+    public Optional<Category> findById(Long id) {
         return this.categoryRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class CategoryData implements CategoryContract {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         this.categoryRepository.deleteById(id);
     }
 }

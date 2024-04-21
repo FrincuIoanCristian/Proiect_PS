@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface CategoryContract {
     List<Category> findAll();
 
-    Optional<Category> findById(long id);
+    Optional<Category> findById(Long id);
 
     Category save(Category category);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 }

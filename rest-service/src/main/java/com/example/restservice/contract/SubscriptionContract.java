@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface SubscriptionContract {
     List<Subscription> findAll();
 
-    Optional<Subscription> findById(long id);
+    Optional<Subscription> findById(Long id);
 
     Subscription save(Subscription subscription);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 
     List<Subscription> findByUserId(Long userId);
 }

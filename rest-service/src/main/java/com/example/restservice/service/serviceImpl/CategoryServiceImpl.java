@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return Un obiect de tipul categorie cu id-ul respectiv
      */
     @Override
-    public Category getCategoryById(long id) {
+    public Category getCategoryById(Long id) {
         return categoryContract.findById(id).orElse(null);
     }
 
@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return obiectul nou actualizat
      */
     @Override
-    public Category updateCategory(long id, Category updateCategory) {
+    public Category updateCategory(Long id, Category updateCategory) {
         Category category = categoryContract.findById(id).orElse(null);
         if (category != null) {
             updateCategory.setCategoryId(category.getCategoryId());
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param id id-ul inregistrari ce se doreste sa se stearga
      */
     @Override
-    public void deleteCategory(long id) {
+    public void deleteCategory(Long id) {
         categoryContract.deleteById(id);
     }
 }

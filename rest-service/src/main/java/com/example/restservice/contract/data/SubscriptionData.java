@@ -24,7 +24,7 @@ public class SubscriptionData implements SubscriptionContract {
     }
 
     @Override
-    public Optional<Subscription> findById(long id) {
+    public Optional<Subscription> findById(Long id) {
         return this.subscriptionRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class SubscriptionData implements SubscriptionContract {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         this.subscriptionRepository.deleteById(id);
     }
 

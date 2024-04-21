@@ -9,13 +9,13 @@ import java.util.List;
 public interface NewsService {
     List<News> getAllNews();
 
-    News getNewsById(long id);
+    News getNewsById(Long id);
 
     News createNews(News news);
 
-    News updateNews(long id, News updateNews);
+    News updateNews(Long id, News updateNews);
 
-    void deleteNews(long id);
+    void deleteNews(Long id);
 
     List<News> getNewsByCategoryName(String categoryName);
 

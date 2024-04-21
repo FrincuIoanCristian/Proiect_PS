@@ -34,12 +34,12 @@ public class Subscription {
     public Subscription() {
     }
 
-    public Subscription(long subscriptionId, User user, Category category, LocalDate startDate) {
+    public Subscription(long subscriptionId, User user, Category category, LocalDate startDate, double amountPaid) {
         this.subscriptionId = subscriptionId;
         this.user = user;
         this.category = category;
         this.startDate = startDate;
-        this.amountPaid = category.getSubscriptionCost();
+        this.amountPaid = amountPaid;
     }
 
     @Override

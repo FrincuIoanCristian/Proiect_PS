@@ -9,11 +9,11 @@ import java.util.Optional;
 public interface NewsContract {
     List<News> findAll();
 
-    Optional<News> findById(long id);
+    Optional<News> findById(Long id);
 
     News save(News news);
 
-    void deleteById(long id);
+    void deleteById(Long id);
 
     List<News> findByCategoryName(String categoryName);
 
