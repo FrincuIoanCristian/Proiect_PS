@@ -25,7 +25,7 @@ public class NewsData implements NewsContract {
     }
 
     @Override
-    public Optional<News> findById(long id) {
+    public Optional<News> findById(Long id) {
         return this.newsRepository.findById(id);
     }
 
@@ -35,7 +35,7 @@ public class NewsData implements NewsContract {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         this.newsRepository.deleteById(id);
     }
 

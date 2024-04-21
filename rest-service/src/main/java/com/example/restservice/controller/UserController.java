@@ -1,6 +1,5 @@
 package com.example.restservice.controller;
 
-import com.example.restservice.model.Subscription;
 import com.example.restservice.model.User;
 import com.example.restservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,22 +105,5 @@ public class UserController {
             return new ResponseEntity<>("Autentificare eșuată", HttpStatus.UNAUTHORIZED);
         }
     }
-
-    /**
-     * Genereaza toate abonamentele unui user dupa un id
-     *
-     * @param userId id-ul pentru care caut
-     * @return Un obiect ResponseEntity care contine lista abonamentelor si statusul HTTP corespunzator.
-     */
-    @GetMapping("/{id}/subscriptions")
-    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable("id") long userId) {
-        User user = userService.getUserById(userId);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        List<Subscription> subscriptions = user.getSubscriptions();
-        return new ResponseEntity<>(subscriptions, HttpStatus.OK);
-    }
-
 
 }

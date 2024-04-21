@@ -25,7 +25,7 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Image> getImage(@PathVariable int id) {
+    public ResponseEntity<Image> getImage(@PathVariable long id) {
         Image image = imageService.getImageById(id);
         if (image != null) {
             return new ResponseEntity<>(image, HttpStatus.OK);

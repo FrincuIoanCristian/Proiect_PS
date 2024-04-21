@@ -40,7 +40,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @return abonamentul cu id-ul gasit/null.
      */
     @Override
-    public Subscription getSubscriptionById(long id) {
+    public Subscription getSubscriptionById(Long id) {
         return subscriptionContract.findById(id).orElse(null);
     }
 
@@ -68,7 +68,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @return Obiectul nou updatat.
      */
     @Override
-    public Subscription updateSubscription(long id, Subscription updateSubscription) {
+    public Subscription updateSubscription(Long id, Subscription updateSubscription) {
         Subscription subscription = subscriptionContract.findById(id).orElse(null);
         if (subscription != null) {
             updateSubscription.setSubscriptionId(subscription.getSubscriptionId());
@@ -84,7 +84,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param id id-ul elementului ce doresc sa-l sterg
      */
     @Override
-    public void deleteSubscription(long id) {
+    public void deleteSubscription(Long id) {
         subscriptionContract.deleteById(id);
     }
 

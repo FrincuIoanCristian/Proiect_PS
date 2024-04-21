@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image getImageById(long id) {
+    public Image getImageById(Long id) {
         return imageContract.findById(id).orElse(null);
     }
 
@@ -45,7 +45,7 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
-    public void deleteImage(long id) {
+    public void deleteImage(Long id) {
         imageContract.deleteById(id);
     }
 }

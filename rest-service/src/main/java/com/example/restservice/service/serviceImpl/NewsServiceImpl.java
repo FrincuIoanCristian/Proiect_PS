@@ -47,7 +47,7 @@ public class NewsServiceImpl implements NewsService {
      * @return stirea gasita cu id-ul respectiv/null
      */
     @Override
-    public News getNewsById(long id) {
+    public News getNewsById(Long id) {
         return newsContract.findById(id).orElse(null);
     }
 
@@ -73,7 +73,7 @@ public class NewsServiceImpl implements NewsService {
      * @return sterea nou creata si updatata
      */
     @Override
-    public News updateNews(long id, News updateNews) {
+    public News updateNews(Long id, News updateNews) {
         News news = newsContract.findById(id).orElse(null);
         if (news != null) {
             updateNews.setNewsId(news.getNewsId());
@@ -91,7 +91,7 @@ public class NewsServiceImpl implements NewsService {
      * @param id id-ul stirii ce doresc sa o sterg
      */
     @Override
-    public void deleteNews(long id) {
+    public void deleteNews(Long id) {
         newsContract.deleteById(id);
     }
 
