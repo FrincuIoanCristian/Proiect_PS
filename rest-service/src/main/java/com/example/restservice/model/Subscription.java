@@ -7,6 +7,11 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Clasa care reprezinta entitatea "Subscription" in cadrul aplicatiei.
+ * Aceasta clasa este mapata pe o tabela în baza de date si contine informatii despre abonamentele aplicatiei.
+ * Am folosit @Setter si @Getter pentru a nu mai scrie settere-le si gettere-le implicit
+ */
 @Setter
 @Getter
 @Entity

@@ -16,18 +16,26 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-
+/**
+ * Teste pentru clasa UserService.
+ */
 public class UserServiceTest {
     @Mock
     private UserContract userContractMock;
     private UserService userService;
 
+    /**
+     * Inițializarea testelor.
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         userService = new UserServiceImpl(userContractMock);
     }
 
+    /**
+     * Test pentru metoda getAllUsers
+     */
     @Test
     public void getAllUsersTest() {
         List<User> users = new ArrayList<>();
@@ -39,6 +47,9 @@ public class UserServiceTest {
         assertEquals(users, allUsers);
     }
 
+    /**
+     * Test pentru metoda getUserById.
+     */
     @Test
     public void getUserByIdTest() {
         Long userId = 1L;
@@ -49,6 +60,9 @@ public class UserServiceTest {
         assertEquals(user, result);
     }
 
+    /**
+     * Test pentru cazul în care utilizatorul nu este găsit.
+     */
     @Test
     public void getUserByIdNotFoundTest() {
         Long userId = 1L;
@@ -58,6 +72,9 @@ public class UserServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda createUser.
+     */
     @Test
     public void addUserTest() {
         User user = new User(1, "username", "password", "email", "fullName", "avatar", 100.0);
@@ -67,6 +84,9 @@ public class UserServiceTest {
         assertEquals(user, result);
     }
 
+    /**
+     * Test pentru metoda updateUser.
+     */
     @Test
     public void updateUserTest() {
         Long userId = 1L;
@@ -80,6 +100,9 @@ public class UserServiceTest {
         assertEquals(existingUser, result);
     }
 
+    /**
+     * Test pentru cazul în care utilizatorul nu este găsit pentru actualizare.
+     */
     @Test
     public void updateUserNotFoundTest() {
         Long userId = 1L;
@@ -90,20 +113,38 @@ public class UserServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda deleteUser.
+     */
     @Test
-    public void testDeleteUser() {
+    public void deleteUserTest() {
         Long userId = 1L;
         userService.deleteUser(userId);
         Mockito.verify(userContractMock).deleteById(userId);
     }
 
+    /**
+     * Test pentru metoda getUserByUsername.
+     */
     @Test
-    public void testGetUserByUsername() {
+    public void getUserByUsernameTest() {
         String username = "username";
         User user = new User(1, username, "password", "email", "fullName", "avatar", 100.0);
         Mockito.when(userContractMock.findByUsername(username)).thenReturn(user);
         User result = userService.getUserByUsername(username);
         Mockito.verify(userContractMock).findByUsername(username);
         assertEquals(user, result);
+    }
+
+    /**
+     * Test pentru cazul in care utilizatorul nu este gasit.
+     */
+    @Test
+    public void getUserByUsernameNotFundTest() {
+        String username = "username";
+        Mockito.when(userContractMock.findByUsername(username)).thenReturn(null);
+        User result = userService.getUserByUsername(username);
+        Mockito.verify(userContractMock).findByUsername(username);
+        assertNull(result);
     }
 }

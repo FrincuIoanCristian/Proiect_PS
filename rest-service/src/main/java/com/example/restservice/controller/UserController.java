@@ -10,6 +10,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller-ul responsabil pentru gestionarea operatiilor legate de utilizatori.
+ * Acesta expune API-uri REST pentru a obtine, crea, actualiza si sterge utilizatori.
+ * /users (GET)
+ * /users/{id} (GET)
+ * /users (POST)
+ * /users/{id} (PUT)
+ * /users/{id} (DELETE)
+ * /users/login (POST)
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,7 +33,7 @@ public class UserController {
     /**
      * Obtine toti utilizatori.
      *
-     * @return o lista cu toti utilizatori
+     * @return lista de utilizari
      */
     @GetMapping
     public List<User> getAllUsers() {
@@ -31,10 +41,10 @@ public class UserController {
     }
 
     /**
-     * Obtine un utilizator dupa un ID.
+     * Obtine un utilizator dupa ID.
      *
      * @param id Id-ul utilizatorului cautat.
-     * @return Un obiect ResponseEntity care contine utilizatorul si mesajul OK, sau un mesaj de eroare in caz ca nu exista.
+     * @return ResponseEntity conținand utilizatorul gasit sau HttpStatus.NOT_FOUND daca utilizatorul nu exista
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") long id) {
@@ -49,8 +59,8 @@ public class UserController {
     /**
      * Creaza un utilizator nou.
      *
-     * @param user Detaliile noului utilizator.
-     * @return Un obiect ResponseEntity care contine utilizatorul creat si statusul HTTP corespunzator. Detaliile vor fi scrise in Body.
+     * @param user Detaliile utilizatorului care urmeaza să fie creat
+     * @return ResponseEntity conținand utilizatorul creat si HttpStatus.CREATED
      */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -60,11 +70,10 @@ public class UserController {
 
     /**
      * Actualizeaza un utilizator existent.
-     * Se verifica cu URL-ul 'http://localhost:8080/users/{id}', iar in loc de {id} se pune ID-ul urilizatorului dorit. Detaliile vor fi scrise in Body.
      *
-     * @param id         Id-ul utilizatorului care trebuie actualizat.
-     * @param newDetails Detaliile de actualizare a utilizatorului.
-     * @return Un obiect ResponseEntity care contine utilizatorul si mesajul OK, sau un mesaj de eroare in caz ca nu exista.
+     * @param id         ID-ul utilizatorului care urmeaza sa fie actualizat
+     * @param newDetails Detaliile actualizate ale utilizatorului
+     * @return ResponseEntity conținand utilizatorul gasit sau HttpStatus.NOT_FOUND daca utilizatorul nu exista
      */
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User newDetails) {
@@ -77,10 +86,10 @@ public class UserController {
     }
 
     /**
-     * Sterge un utilizator existent dupa un anumit ID.
+     * Sterge un utilizator dupa ID.
      *
-     * @param id ID-ul utilizatoruluo care trebuie sters.
-     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     * @param id ID-ul utilizatorului care urmeaza sa fie sters
+     * @return ResponseEntity cu HttpStatus.OK pentru confirmarea stergerii
      */
     @DeleteMapping("/{id}")
     @Transactional
@@ -90,11 +99,11 @@ public class UserController {
     }
 
     /**
-     * Endpoint pentru login, primesc un username si o parola si caut utilizatorul cu userul repectiv si verific daca exista
-     * si parolele sunt egale
+     * Verifica incercarea de login.
+     * Daca exista utilizatorul cu username-ul respectiv si parola este la fel, atunci se poate autentifica
      *
      * @param user contine username-ul si parola pentru care doresc sa fac login
-     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     * @return ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
      */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {

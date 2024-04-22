@@ -10,6 +10,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller-ul responsabil pentru gestionarea operatiilor legate de categorii.
+ * Acesta expune API-uri REST pentru a obtine, crea, actualiza si sterge categorii.
+ * /categories (GET)
+ * /categories/{id} (GET)
+ * /categories (POST)
+ * /categories/{id} (PUT)
+ * /categories/{id} (DELETE)
+ */
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -23,7 +32,7 @@ public class CategoryController {
     /**
      * Obtine toate categoriile
      *
-     * @return o lista cu toate categoriile
+     * @return lista de categorii
      */
     @GetMapping
     public List<Category> getAllCategories() {
@@ -31,10 +40,10 @@ public class CategoryController {
     }
 
     /**
-     * Obtine o categorie dupa un id
+     * Obtine o categorie dupa ID
      *
-     * @param id id-ul categoriei cautate
-     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     * @param id ID-ul categoriei cautate
+     * @return ResponseEntity conținand categoria gasita sau HttpStatus.NOT_FOUND daca categoria nu exista
      */
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategory(@PathVariable long id) {
@@ -49,8 +58,8 @@ public class CategoryController {
     /**
      * Creaza o categorie noua.
      *
-     * @param category detaliile noii categorii.
-     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     * @param category Detaliile categoriei care urmeaza să fie create
+     * @return ResponseEntity conținand categoria creat si HttpStatus.CREATED
      */
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
@@ -59,11 +68,11 @@ public class CategoryController {
     }
 
     /**
-     * Actualizeaza o categorie existenta, cautata dupa id
+     * Actualizeaza o categorie existenta.
      *
-     * @param id         id-ul categoriei cautate
-     * @param newDetails noile detalii
-     * @return Un obiect ResponseEntity care contine categoria si statusul HTTP corespunzator.
+     * @param id         ID-ul categoriei care urmeaza sa fie actualizata
+     * @param newDetails Detaliile actualizate ale categoriei
+     * @return ResponseEntity conținand categoria gasita sau HttpStatus.NOT_FOUND daca categoria nu exista
      */
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable long id, @RequestBody Category newDetails) {
@@ -76,10 +85,10 @@ public class CategoryController {
     }
 
     /**
-     * Sterge o categorie dupa un id
+     * Sterge o categorie dupa ID.
      *
-     * @param id id-ul categorie ce doresc sa o sterg
-     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     * @param id ID-ul categorie care urmeaza sa fie sters
+     * @return ResponseEntity cu HttpStatus.OK pentru confirmarea stergerii
      */
     @DeleteMapping("/{id}")
     @Transactional

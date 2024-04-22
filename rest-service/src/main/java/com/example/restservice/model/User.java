@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Clasa care reprezintă un utilizator în sistem.
+ * Clasa care reprezinta entitatea "User" in cadrul aplicatiei.
+ * Aceasta clasa este mapata pe o tabela în baza de date si contine informatii despre utilizatorii aplicatiei.
+ * Am folosit @Setter si @Getter pentru a nu mai scrie settere-le si gettere-le implicit
  */
 @Getter
 @Setter

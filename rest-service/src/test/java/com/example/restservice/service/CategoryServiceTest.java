@@ -16,17 +16,26 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+/**
+ * Teste pentru clasa CategoryService.
+ */
 public class CategoryServiceTest {
     @Mock
     private CategoryContract categoryContractMock;
     private CategoryService categoryService;
 
+    /**
+     * Inițializarea testelor.
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         categoryService = new CategoryServiceImpl(categoryContractMock);
     }
 
+    /**
+     * Test pentru metoda getAllCategories.
+     */
     @Test
     public void getAllCategoryTest() {
         List<Category> categoryList = new ArrayList<>();
@@ -39,6 +48,9 @@ public class CategoryServiceTest {
         assertEquals(categoryList, allCategories);
     }
 
+    /**
+     * Test pentru metoda getCategoryById.
+     */
     @Test
     public void getCategoryByIdTest() {
         Long categoryId = 1L;
@@ -49,6 +61,9 @@ public class CategoryServiceTest {
         assertEquals(category, result);
     }
 
+    /**
+     * Test pentru cazul in care categoriea nu este gasita.
+     */
     @Test
     public void getCategoryByIdNotFoundTest() {
         Long categoryId = 1L;
@@ -58,6 +73,9 @@ public class CategoryServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda createCategory.
+     */
     @Test
     public void addCategoryTest() {
         Category category = new Category(1, "categoryName", 20.0);
@@ -67,6 +85,9 @@ public class CategoryServiceTest {
         assertEquals(category, result);
     }
 
+    /**
+     * Test pentru metoda updateCategory
+     */
     @Test
     public void updateCategoryTest() {
         Long categoryId = 1L;
@@ -80,6 +101,9 @@ public class CategoryServiceTest {
         assertEquals(existingCategory, result);
     }
 
+    /**
+     * Test pentru cazul in care categoria nu este gasita pentru actualizare
+     */
     @Test
     public void updateCategoryNotFoundTest() {
         Long categoryId = 1L;
@@ -90,6 +114,9 @@ public class CategoryServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda deleteCategory.
+     */
     @Test
     public void deleteCategoryTest() {
         Long categoryId = 1L;

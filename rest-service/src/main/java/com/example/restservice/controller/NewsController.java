@@ -11,6 +11,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller-ul responsabil pentru gestionarea operatiilor legate de stiri.
+ * Acesta expune API-uri REST pentru a obtine, crea, actualiza si sterge stiri.
+ * /news (GET)
+ * /news/{id} (GET)
+ * /news (POST)
+ * /news/{id} (PUT)
+ * /news/{id} (DELETE)
+ * /news/getNewsByCategoryName (GET)
+ * /news/getUsersByNewsId/{id} (GET)
+ */
 @RestController
 @RequestMapping("/news")
 public class NewsController {
@@ -24,7 +35,7 @@ public class NewsController {
     /**
      * Obtin toate stirile
      *
-     * @return o lisat cu toate stirile
+     * @return lisat de stiri
      */
     @GetMapping
     public List<News> getAllNews() {
@@ -32,10 +43,10 @@ public class NewsController {
     }
 
     /**
-     * Obtin o stire dupa un id
+     * Obtin o stire dupa ID
      *
-     * @param id id-ul stirii cautate
-     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     * @param id Id-ul stirii cautate.
+     * @return ResponseEntity conținand stirea gasita sau HttpStatus.NOT_FOUND daca stirea nu exista.
      */
     @GetMapping("/{id}")
     public ResponseEntity<News> getNews(@PathVariable long id) {
@@ -50,8 +61,8 @@ public class NewsController {
     /**
      * Creaza o stire noua
      *
-     * @param news detaliile noi stiri
-     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     * @param news Detaliile stirii care urmeaza să fie create
+     * @return ResponseEntity conținand stirea creata si HttpStatus.CREATED
      */
     @PostMapping
     public ResponseEntity<News> createNews(@RequestBody News news) {
@@ -60,11 +71,11 @@ public class NewsController {
     }
 
     /**
-     * Actualizeaza o stire dupa un id
+     * Actualizeaza o stire existenta.
      *
-     * @param id         id-ul stirii ce doresc sa o actualizez
-     * @param newDetails noile detalii ale stirii
-     * @return Un obiect ResponseEntity care contine stirea si statusul HTTP corespunzator.
+     * @param id         ID-ul stirii care urmeaza sa fie actualizata
+     * @param newDetails Detaliile actualizate ale stirii
+     * @return ResponseEntity conținand stirea gasita sau HttpStatus.NOT_FOUND daca stirea nu exista.
      */
     @PutMapping("/{id}")
     public ResponseEntity<News> updateNews(@PathVariable long id, @RequestBody News newDetails) {
@@ -77,10 +88,10 @@ public class NewsController {
     }
 
     /**
-     * Sterge o stire din tabela dupa un id
+     * Sterge o stire dupa ID.
      *
-     * @param id id-ul stirii cautate
-     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     * @param id ID-ul stirii care urmeaza sa fie stearsa
+     * @return ResponseEntity cu HttpStatus.OK pentru confirmarea stergerii
      */
     @DeleteMapping("/{id}")
     @Transactional
@@ -90,16 +101,21 @@ public class NewsController {
     }
 
     /**
-     * Genereaza toate stirile ce apartin unei categorii cu numele indicat
+     * Obtin toate stirile unei categorii dupa numele Categoriei
      *
      * @param categoryName numele categoriei pentru care se cauta stiri
-     * @return o lista cu stirile gasite
+     * @return o lista cu stiri
      */
     @GetMapping("/getNewsByCategoryName")
     public List<News> getNewsByCategoryName(@RequestParam String categoryName) {
         return newsService.getNewsByCategoryName(categoryName);
     }
 
+    /**
+     * Obtin toti utilizatori care sunt abonati la categoria din care face parte stirea
+     * @param id    ID-ul stirii pentru care se cauta utilizatori
+     * @return lisat de utilizatori
+     */
     @GetMapping("/getUsersByNewsId/{id}")
     public List<User> getUsersByNewsId(@PathVariable long id) {
         return newsService.getUsersByNewsId(id);

@@ -20,6 +20,9 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+/**
+ * Teste pentru clasa SubscriptionService.
+ */
 public class SubscriptionServiceTest {
     @Mock
     private SubscriptionContract subscriptionContract;
@@ -28,12 +31,18 @@ public class SubscriptionServiceTest {
 
     private SubscriptionService subscriptionService;
 
+    /**
+     * Inițializarea testelor.
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         subscriptionService = new SubscriptionServiceImpl(subscriptionContract, categoryContract);
     }
 
+    /**
+     * Test pentru metoda getAllSubscriptions
+     */
     @Test
     public void getAllSubscriptionTest() {
         List<Subscription> subscriptions = new ArrayList<>();
@@ -46,6 +55,9 @@ public class SubscriptionServiceTest {
         assertEquals(subscriptions, allSubscriptions);
     }
 
+    /**
+     * Test pentru metoda getSubscriptionsById.
+     */
     @Test
     public void getSubscriptionByIdTest() {
         Long subscriptionId = 1L;
@@ -56,6 +68,9 @@ public class SubscriptionServiceTest {
         assertEquals(subscription, foundSubscription);
     }
 
+    /**
+     * Test pentru casul in care abonamentul nu este gasit.
+     */
     @Test
     public void getSubscriptionByIdNotFoundTest() {
         Long subscriptionId = 1L;
@@ -65,20 +80,24 @@ public class SubscriptionServiceTest {
         assertNull(foundSubscription);
     }
 
-
+    /**
+     * Test pentru metoda createSubscription
+     */
     @Test
     public void addSubscriptionTest() {
         Category category = new Category(1, "CategoryName", 50.0);
         Subscription subscription = new Subscription(1, null, category, null, 100.0);
         Mockito.when(categoryContract.findById(subscription.getCategory().getCategoryId())).thenReturn(Optional.of(category));
         Mockito.when(subscriptionContract.save(subscription)).thenReturn(subscription);
-
         Subscription result = subscriptionService.createSubscription(subscription);
         Mockito.verify(categoryContract).findById(subscription.getCategory().getCategoryId());
         Mockito.verify(subscriptionContract).save(subscription);
         assertEquals(subscription, result);
     }
 
+    /**
+     * Test pentru metoda updateSubscription.
+     */
     @Test
     public void updateSubscriptionTest() {
         Long subscriptionId = 1L;
@@ -93,6 +112,9 @@ public class SubscriptionServiceTest {
         assertEquals(existingSubscription, result);
     }
 
+    /**
+     * Test pentu cazul in care abonamentul nu a fost gasit pentru actualizare.
+     */
     @Test
     public void updateSubscriptionNotFoundTest() {
         Long subscriptionId = 1L;
@@ -103,6 +125,9 @@ public class SubscriptionServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda deleteSubscription.
+     */
     @Test
     public void deleteSubscriptionTest() {
         Long subscriptionId = 1L;
@@ -110,8 +135,11 @@ public class SubscriptionServiceTest {
         Mockito.verify(subscriptionContract).deleteById(subscriptionId);
     }
 
+    /**
+     * Test pentru metoda GetSubscriptionByUserId.
+     */
     @Test
-    public void testGetSubscriptionsByUserId() {
+    public void getSubscriptionsByUserIdTest() {
         Long userId = 1L;
         User user1 = new User(userId, "username1", "password1", "email1", "fullName1", "avatar1", 100.0);
         List<Subscription> subscriptions = new ArrayList<>();
