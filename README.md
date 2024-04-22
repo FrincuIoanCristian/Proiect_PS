@@ -90,8 +90,8 @@
 
 # Implementare
 <p float="left">
-  <img src="Poze/argitectura1.png" width="500" />
-  <img src="Poze/arhitectura2.png" width="500" />
+  <img src="Poze/argitectura1.png" width="300" />
+  <img src="Poze/arhitectura2.png" width="300" />
 </p>
 
 ## Model
