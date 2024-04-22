@@ -19,8 +19,10 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.anyLong;
 
+/**
+ * Teste pentru clasa NewsService.
+ */
 public class NewsServiceTest {
     @Mock
     private NewsContract newsContractMock;
@@ -30,14 +32,20 @@ public class NewsServiceTest {
     private EmailService emailServiceMock;
     private NewsService newsService;
 
+    /**
+     * Inițializarea testelor.
+     */
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         newsService = new NewsServiceImpl(newsContractMock, categoryContractMock, emailServiceMock);
     }
 
+    /**
+     * Test pentru metoda getAllNews
+     */
     @Test
-    public void testGetAllNews() {
+    public void getAllNewsTest() {
         List<News> newsList = new ArrayList<>();
         newsList.add(new News(1L, null, "title1", "content1", null));
         newsList.add(new News(2L, null, "title2", "content2", null));
@@ -47,8 +55,11 @@ public class NewsServiceTest {
         assertEquals(newsList, allNews);
     }
 
+    /**
+     * Test pentru metoda getNewsById.
+     */
     @Test
-    public void testGetNewsById() {
+    public void getNewsByIdTest() {
         Long newsId = 1L;
         News news = new News(newsId, null, "title", "content", null);
         Mockito.when(newsContractMock.findById(newsId)).thenReturn(Optional.of(news));
@@ -57,8 +68,11 @@ public class NewsServiceTest {
         assertEquals(news, result);
     }
 
+    /**
+     * Test pentru cazul în care stirea nu este gasita.
+     */
     @Test
-    public void testGetNewsByIdNotFound() {
+    public void getNewsByIdNotFoundTest() {
         Long newsId = 1L;
         Mockito.when(newsContractMock.findById(newsId)).thenReturn(Optional.empty());
         News result = newsService.getNewsById(newsId);
@@ -66,8 +80,11 @@ public class NewsServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda createNews.
+     */
     @Test
-    public void testCreateNews() {
+    public void createNewsTest() {
         Long newsId = 1L;
         Category category = new Category(newsId, "categoryName", 100.0);
         News news = new News(1, category, "title", "content", null);
@@ -78,8 +95,11 @@ public class NewsServiceTest {
         assertEquals(news, result);
     }
 
+    /**
+     * Test pentru metoda updateNews.
+     */
     @Test
-    public void testUpdateNews() {
+    public void updateNewsTest() {
         Long newsId = 1L;
         Category category = new Category(1, "categoryName", 100.0);
         News existingNews = new News(newsId, category, "title", "content", null);
@@ -92,8 +112,11 @@ public class NewsServiceTest {
         assertEquals(existingNews, result);
     }
 
+    /**
+     * Test pentru cazul în care stirea nu este găsita pentru actualizare.
+     */
     @Test
-    public void testUpdateNewsNotFound() {
+    public void updateNewsNotFoundTest() {
         Long newsId = 1L;
         News updatedNews = new News(newsId, null, "title", "content", null);
         Mockito.when(newsContractMock.findById(newsId)).thenReturn(Optional.empty());
@@ -102,15 +125,21 @@ public class NewsServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Test pentru metoda deleteNews.
+     */
     @Test
-    public void testDeleteNews() {
+    public void deleteNewsTest() {
         Long newsId = 1L;
         newsService.deleteNews(newsId);
         Mockito.verify(newsContractMock).deleteById(newsId);
     }
 
+    /**
+     * Test pentru metoda getNewsByCategoryName
+     */
     @Test
-    public void testGetNewsByCategoryName() {
+    public void getNewsByCategoryNameTest() {
         String categoryName = "TestCategory";
         List<News> newsList = new ArrayList<>();
         newsList.add(new News(1L, null, categoryName, "content1", null));
@@ -121,12 +150,15 @@ public class NewsServiceTest {
         assertEquals(newsList, result);
     }
 
+    /**
+     * Test pentru metoda getUsersByNewsId
+     */
     @Test
-    public void testGetUsersByNewsId() {
+    public void getUsersByNewsIdTest() {
         Long newsId = 1L;
         List<User> userList = new ArrayList<>();
         userList.add(new User(1L, "username", "password", "email", "fullName", "avatar", 100.0));
-        Mockito.when(newsContractMock.findUsersByNewsId(anyLong())).thenReturn(userList);
+        Mockito.when(newsContractMock.findUsersByNewsId(newsId)).thenReturn(userList);
         List<User> result = newsService.getUsersByNewsId(newsId);
         Mockito.verify(newsContractMock).findUsersByNewsId(newsId);
         assertEquals(userList, result);

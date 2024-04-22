@@ -14,7 +14,9 @@ import java.util.Optional;
  */
 @Repository
 public class UserData implements UserContract {
-
+    /**
+     * Utilizez repozitory-ul JPA pentru lucrul cu baza de date pentru tabela User
+     */
     private final UserRepository userRepository;
 
     /**
@@ -28,9 +30,9 @@ public class UserData implements UserContract {
     }
 
     /**
-     * Returnează o listă cu toți utilizatorii din sistem.
+     * Metoda care cauta toti utilizatori
      *
-     * @return Lista cu utilizatori
+     * @return lista de utilizatori
      */
     @Override
     public List<User> findAll() {
@@ -38,10 +40,10 @@ public class UserData implements UserContract {
     }
 
     /**
-     * Returnează utilizatorul cu ID-ul specificat.
+     * Metoda care cauta un utilizator dupa ID
      *
-     * @param id ID-ul utilizatorului căutat
-     * @return Utilizatorul cu ID-ul specificat încapsulat într-un obiect Optional sau Optional.empty() dacă nu există
+     * @param id ID-ul utilizatorului cautat
+     * @return Utilizatorul gasit sau null
      */
     @Override
     public Optional<User> findById(Long id) {
@@ -49,10 +51,10 @@ public class UserData implements UserContract {
     }
 
     /**
-     * Salvează sau actualizează un utilizator în baza de date.
+     * Metoda care salveaza utilizatorul in baza de date
      *
-     * @param user Utilizatorul care urmează să fie salvat sau actualizat
-     * @return Utilizatorul salvat sau actualizat
+     * @param user Detaliile utilizatorului ce vreau sa il salvez
+     * @return Utilizatorul salvat
      */
     @Override
     public User save(User user) {
@@ -60,9 +62,9 @@ public class UserData implements UserContract {
     }
 
     /**
-     * Șterge utilizatorul cu ID-ul specificat din sistem.
+     * Metoda care sterge un utilizator
      *
-     * @param userId ID-ul utilizatorului care urmează să fie șters
+     * @param userId Id-ul utilizatorului ce urmeaza sa il sterg
      */
     @Override
     public void deleteById(Long userId) {
@@ -70,10 +72,10 @@ public class UserData implements UserContract {
     }
 
     /**
-     * Returnează utilizatorul cu numele de utilizator specificat.
+     * Metoda care cauta un utilizator dupa username
      *
-     * @param username Numele de utilizator căutat
-     * @return Utilizatorul cu numele de utilizator specificat sau null dacă nu există
+     * @param username Username-ul utilizatorului cautat
+     * @return Utilizatorul gasit
      */
     @Override
     public User findByUsername(String username) {

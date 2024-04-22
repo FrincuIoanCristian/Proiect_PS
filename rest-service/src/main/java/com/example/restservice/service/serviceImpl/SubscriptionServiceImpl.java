@@ -11,22 +11,29 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Implementarea contractului pentru gestionarea datelor abonamentelor în baza de date.
+ */
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionContract subscriptionContract;
     private final CategoryContract categoryContract;
 
+    /**
+     * Constructorul care injectează dependența către SubscriptionContract si CategoryContract
+     * @param subscriptionContract Contractul pentru gestionarea datelor de tipul Subscription
+     * @param categoryContract Contractul pentru gestionarea datelor de tipul Category
+     */
     @Autowired
     public SubscriptionServiceImpl(SubscriptionContract subscriptionContract, CategoryContract categoryContract) {
         this.subscriptionContract = subscriptionContract;
         this.categoryContract = categoryContract;
     }
 
-
     /**
-     * Returneaza lista tuturor abonamentelor.
+     * Metoda care obține o listă cu toate abonamentele din sistem.
      *
-     * @return o lista cu toate abonamentele
+     * @return Lista cu abonamente
      */
     @Override
     public List<Subscription> getAllSubscriptions() {
@@ -34,10 +41,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     /**
-     * Cauta un abonament dupa un id.
+     * Metoda care obține un abonament după ID-ul specificat.
      *
-     * @param id id-ul abonamentului cautat.
-     * @return abonamentul cu id-ul gasit/null.
+     * @param id ID-ul abonamentului căutat
+     * @return Abonamentul cu ID-ul specificat sau null dacă nu există
      */
     @Override
     public Subscription getSubscriptionById(Long id) {
@@ -45,10 +52,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     /**
-     * Creaza si salveaza o noua inregistrare in tabel.
+     * Metoda care creează un abonament nou în sistem.
      *
-     * @param subscription Abonamentul ce doresc sa il salvez in tabel.
-     * @return Abonamentul nou creat.
+     * @param subscription Abonamentul care urmează să fie creat
+     * @return Abonamentul creat
      */
     @Override
     public Subscription createSubscription(Subscription subscription) {
@@ -61,11 +68,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     /**
-     * Face update la o inregistrare cu un id.
+     * Metoda care actualizează un abonament existent în sistem.
      *
-     * @param id                 id-ul inregistrari ce doresc sa ii fac update.
-     * @param updateSubscription Noile valori cu care doresc sa fac update.
-     * @return Obiectul nou updatat.
+     * @param id                 ID-ul abonamentului care urmează să fie actualizat
+     * @param updateSubscription Abonamentul actualizat
+     * @return Abonamentul actualizat sau null dacă nu există un abonament cu ID-ul specificat
      */
     @Override
     public Subscription updateSubscription(Long id, Subscription updateSubscription) {
@@ -79,9 +86,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     /**
-     * Sterge o inregistrare dupa un id
+     * Metoda care sterge un abonament existent din sistem.
      *
-     * @param id id-ul elementului ce doresc sa-l sterg
+     * @param id ID-ul abonamentului care urmează să fie șters
      */
     @Override
     public void deleteSubscription(Long id) {
@@ -89,10 +96,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     /**
-     * Returnez lista de abonamente cu un userId.
+     * Metoda care obține o listă cu abonamentele asociate unui anumit utilizator.
      *
-     * @param userId id-ul user-ului pentru care caut abonamentele
-     * @return lista abonamentelor asociate unui user
+     * @param userId ID-ul utilizatorului pentru care se caută abonamentele
+     * @return Lista cu abonamentele asociate utilizatorului specificat
      */
     @Override
     public List<Subscription> getSubscriptionsByUserId(Long userId) {

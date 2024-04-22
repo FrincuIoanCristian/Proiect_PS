@@ -7,7 +7,9 @@ import jakarta.mail.MessagingException;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * Clasa care implementează observatorul pentru notificările utilizatorului.
+ */
 public class UserNotification implements UserNewsObserver {
 
     @Setter
@@ -16,21 +18,27 @@ public class UserNotification implements UserNewsObserver {
 
     private final EmailService emailService;
 
+    /**
+     * Constructor pentru UserNotification.
+     * @param user Utilizatorul pentru care se creează notificatorul.
+     * @param emailService Serviciul pentru trimiterea de emailuri.
+     */
     public UserNotification(User user, EmailService emailService) {
         this.user = user;
         this.emailService = emailService;
     }
 
+    /**
+     * Metodă pentru actualizarea utilizatorului cu știrile noi.
+     * @param news Știrea nouă.
+     * @param category Categoria știrii noi.
+     */
     @Override
     public void update(News news, Category category) {
-        System.out.println("###################################################################################");
-        System.out.println("Sending email to: " + user.getEmail());
         try {
             emailService.sendEmailNewsAdded(user.getEmail(), news, category.getCategoryName());
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Email was sent");
-        System.out.println("###################################################################################\n");
     }
 }

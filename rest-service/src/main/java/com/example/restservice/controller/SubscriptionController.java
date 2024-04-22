@@ -10,6 +10,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller-ul responsabil pentru gestionarea operatiilor legate de abonamente.
+ * Acesta expune API-uri REST pentru a obtine, crea, actualiza si sterge abonamente.
+ * /subscriptions (GET)
+ * /subscriptions/{id} (GET)
+ * /subscriptions (POST)
+ * /subscriptions/{id} (PUT)
+ * /subscriptions/{id} (DELETE)
+ * /subscriptions/getSubscriptionsByUserId/{id} (GET)
+ */
 @RestController
 @RequestMapping("/subscriptions")
 public class SubscriptionController {
@@ -23,7 +33,7 @@ public class SubscriptionController {
     /**
      * Obtine toate abonamentele
      *
-     * @return o lista cu toate abonamentele
+     * @return lista de abonamente
      */
     @GetMapping
     public List<Subscription> getAllSubscriptions() {
@@ -31,10 +41,10 @@ public class SubscriptionController {
     }
 
     /**
-     * Obtine un abonament dupa un id
+     * Obtine un abonament dupa un ID.
      *
-     * @param id id-ul pentru care se cauta
-     * @return Un obiect ResponseEntity care contine abonamentul si statusul HTTP corespunzator.
+     * @param id ID-ul abonamentului cautat
+     * @return ResponseEntity conținand abonamentul gasit sau HttpStatus.NOT_FOUND daca abonamentul nu exista
      */
     @GetMapping("/{id}")
     public ResponseEntity<Subscription> getSubscription(@PathVariable long id) {
@@ -47,10 +57,10 @@ public class SubscriptionController {
     }
 
     /**
-     * Creaza un nou abonament
+     * Creaza un abonament nou
      *
-     * @param subscription detaliile noului abonament
-     * @return Un obiect ResponseEntity care contine abonamentul si statusul HTTP corespunzator.
+     * @param subscription Detaliile abonamentului care urmeaza să fie creat
+     * @return ResponseEntity conținand abonamentul creat si HttpStatus. CREATED
      */
     @PostMapping
     public ResponseEntity<Subscription> createSubscription(@RequestBody Subscription subscription) {
@@ -59,11 +69,11 @@ public class SubscriptionController {
     }
 
     /**
-     * Actualizeaza un nou abonament
+     * Actualizeaza un abonament existent
      *
-     * @param id         id-ul abonamentului ce vreau sa il actualizez
-     * @param newDetails detaliile noului abonament
-     * @return Un obiect ResponseEntity care contine abonamentul si statusul HTTP corespunzator.
+     * @param id         ID-ul abonamentului care urmeaza sa fie actualizat
+     * @param newDetails Detaliile actualizate ale abonamentului
+     * @return ResponseEntity conținand abonamentul gasit sau HttpStatus.NOT_FOUND daca abonamentul nu exista
      */
     @PutMapping("/{id}")
     public ResponseEntity<Subscription> updateSubscription(@PathVariable long id, @RequestBody Subscription newDetails) {
@@ -76,10 +86,10 @@ public class SubscriptionController {
     }
 
     /**
-     * Sterge un abonament dupa un id
+     * Sterge un abonament dupa ID.
      *
-     * @param id id-ul abonamentului ce doreste sa se stearga
-     * @return Un obiect ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
+     * @param id ID-ul abonamentului care urmeaza sa fie sters
+     * @return ResponseEntity cu HttpStatus.OK pentru confirmarea stergerii
      */
     @DeleteMapping("/{id}")
     @Transactional
@@ -89,10 +99,10 @@ public class SubscriptionController {
     }
 
     /**
-     * Obtine o lista de abonamente a unui utilizator dupa un anumit id
+     * Obtine o lista de abonamente a unui utilizator dupa ID.
      *
-     * @param id id-ul utilizatorului pentru care se cauta abonamentele
-     * @return lista de abonamente asociate utilizatorului cu id-ul precizat
+     * @param id ID-ul utilizatorului pentru care se cauta abonamentele
+     * @return lista de abonamente asociate utilizatorului cu ID-ul precizat
      */
     @GetMapping("/getSubscriptionsByUserId/{id}")
     public List<Subscription> getUserSubscriptions(@PathVariable Long id) {
