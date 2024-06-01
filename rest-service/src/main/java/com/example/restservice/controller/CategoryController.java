@@ -20,6 +20,7 @@ import java.util.List;
  * /categories/{id} (DELETE)
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;

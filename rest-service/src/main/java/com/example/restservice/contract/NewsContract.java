@@ -2,6 +2,7 @@ package com.example.restservice.contract;
 
 import com.example.restservice.model.News;
 import com.example.restservice.model.User;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,4 +57,6 @@ public interface NewsContract {
      * @return lista de utilizatori
      */
     List<User> findUsersByNewsId(Long newsId);
+
+    List<News> findTop3ByOrderByPublishedAtDesc(Pageable pageable);
 }

@@ -1,0 +1,16 @@
+<!-- profile.component.html -->
+<div class="background-image">
+    <img src="assets/images/fundalPanel.png" alt="Background Image">
+    <div class="profile-icon" (click)="toggleDropdown()">
+      <span *ngIf="notificationCount > 0" class="notification-badge">{{ notificationCount }}</span>
+    </div>
+    <div class="dropdown-menu" *ngIf="showDropdown">
+      <ul>
+        <li (click)="viewUserData()">Detalii cont</li>
+        <li >Comenzile mele</li>
+        <li>Suport Cont</li>
+        <li >Deconectează-te</li>
+      </ul>
+    </div>
+  </div>
+<button (click)="viewUserData()">Vizualizare date utilizator</button>

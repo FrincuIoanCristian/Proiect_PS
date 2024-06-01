@@ -2,6 +2,8 @@ package com.example.restservice.service;
 
 import com.example.restservice.model.News;
 import com.example.restservice.model.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -66,4 +68,6 @@ public interface NewsService {
      * @return Lista cu utilizatorii care au abonamente pentru știrea specificată
      */
     List<User> getUsersByNewsId(Long newsId);
+
+    List<News> findTop3ByOrderByPublishedAtDesc(Pageable pageable);
 }

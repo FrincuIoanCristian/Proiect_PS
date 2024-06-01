@@ -38,6 +38,9 @@ public class News {
     @Column(name = "published_at")
     private LocalDate publishedAt;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Image> images = new ArrayList<>();
@@ -45,12 +48,13 @@ public class News {
     public News() {
     }
 
-    public News(long newsId, Category category, String title, String content, LocalDate publishedAt) {
+    public News(long newsId, Category category, String title, String content, LocalDate publishedAt, String image) {
         this.newsId = newsId;
         this.category = category;
         this.title = title;
         this.content = content;
         this.publishedAt = publishedAt;
+        this.image = image;
     }
 
     @Override
@@ -58,11 +62,11 @@ public class News {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return newsId == news.newsId && Objects.equals(category, news.category) && Objects.equals(title, news.title) && Objects.equals(content, news.content) && Objects.equals(publishedAt, news.publishedAt);
+        return newsId == news.newsId && Objects.equals(category, news.category) && Objects.equals(title, news.title) && Objects.equals(content, news.content) && Objects.equals(publishedAt, news.publishedAt) && Objects.equals(image, news.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(newsId, category, title, content, publishedAt);
+        return Objects.hash(newsId, category, title, content, publishedAt, image);
     }
 }

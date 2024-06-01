@@ -1,0 +1,141 @@
+<div class="header">
+    <button (click)="logout()">Logout</button>
+    <button (click)="setType('Category')">Category</button>
+    <button (click)="setType('News')">News</button>
+    <button (click)="setType('Image')">Image</button>
+</div>
+<div class="add-button">
+    <div *ngIf="type !== '' && activateAdd === false" class="table-container"><button (click)="activateButton()">Add</button></div>   
+</div>
+<div class="content">
+    <div *ngIf="type === 'Category' && activateAdd === false" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Subscriprion Cost</th>
+                    <th>Logo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories">
+                    <td>{{ category.categoryId }}</td>
+                    <td>{{ category.categoryName }}</td>
+                    <td>{{ category.subscriptionCost }}</td>
+                    <td><img [src]="category.logo"  width="200" height="200"></td>
+                    <td>
+                        <button (click)="editNews(category.categoryId)">Edit</button>
+                        <button (click)="delete(category.categoryId)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="type === 'News' && activateAdd === false" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let news of newsList">
+                    <td>{{ news.newsId }}</td>
+                    <td>{{ news.category.categoryName }}</td>
+                    <td>{{ news.title }}</td>
+                    <td>{{ news.publishedAt }}</td>
+                    <td>
+                        <button (click)="editNews(news.newsId)">Edit</button>
+                        <button (click)="delete(news.newsId)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="type === 'Image' && activateAdd === false" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let image of images">
+                    <td>{{ image.imageId }}</td>
+                    <td>{{ image.news.title }}</td>
+                    <td><img [src]="image.url" alt="{{ image.news.title }}" width="200" height="200"></td>
+                    <td>
+                        <button (click)="editNews(image.imageId)">Edit</button>
+                        <button (click)="delete(image.imageId)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Adaugare Categorie -->
+    <div *ngIf="activateAdd === true" class="table-container">
+        <!-- Adaugare Categorie -->
+        <div *ngIf="type === 'Category'">
+            <button (click)="adaugaInBD()">Add</button>
+            <div>
+                <label for="categoryName">Category Name:</label>
+                <input type="text" id="categoryName" name="categoryName" [(ngModel)] = "category.categoryName">
+            </div>
+            <div>
+                <label for="subscriptionCost">Subscription Cost:</label>
+                <input type="number" id="subscriptionCost" name="subscriptionCost" [(ngModel)] = "category.subscriptionCost">
+            </div>
+            <label for="logo">Logo:</label>
+            <input type="text" id="logo" name="logo" [(ngModel)] = "category.logo">
+        </div>
+        <!-- Adaugare Stire -->
+        <div *ngIf="type === 'News'">
+            <button (click)="adaugaInBD()">Add</button>
+            <!-- Aici vreau input-uri pentru News -->
+            <div>
+                <label for="newsTitle">Title:</label>
+                <input type="text" id="title" name="title" [(ngModel)]="news.title">
+            </div>
+            <div>
+                <label for="newsContent">Content:</label>
+                <textarea id="content" name="content" [(ngModel)]="news.content"></textarea>
+            </div>
+            <div>
+                <label for="newsCategory">Category:</label>
+                <select class="dropsown" id="newsCategory" name="newsCategory" [(ngModel)]="news.category">
+                    <option>--Select--</option>
+                    <option *ngFor="let category of categories" [ngValue]="category">{{ category.categoryName }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf="type === 'Image'">
+            <button (click)="adaugaInBD()">Add</button>
+            <!-- Aici vreau input-uri pentru News -->
+            <div>
+                <label for="url-image">Image URL:</label>
+                <input type="text" id="url" name="url" [(ngModel)]="image.url">
+            </div>
+            <div>
+                <label for="NewsImage">News:</label>
+                <select class="dropsown" id="news" name="news" [(ngModel)]="image.news">
+                    <option>--Select--</option>
+                    <option *ngFor="let news of newsList" [ngValue]="news">{{ news.title }}</option>
+                </select>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

@@ -30,6 +30,9 @@ public class Category {
     @Column(name = "subscription_cost")
     private Double subscriptionCost;
 
+    @Column(name = "logo")
+    private String logo;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<News> newsList = new ArrayList<>();
@@ -41,10 +44,11 @@ public class Category {
     public Category() {
     }
 
-    public Category(long categoryId, String categoryName, Double subscriptionCost) {
+    public Category(long categoryId, String categoryName, Double subscriptionCost, String logo) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.subscriptionCost = subscriptionCost;
+        this.logo = logo;
     }
 
     @Override
@@ -52,11 +56,11 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return categoryId == category.categoryId && Objects.equals(categoryName, category.categoryName) && Objects.equals(subscriptionCost, category.subscriptionCost) && Objects.equals(newsList, category.newsList) && Objects.equals(subscriptions, category.subscriptions);
+        return categoryId == category.categoryId && Objects.equals(categoryName, category.categoryName) && Objects.equals(subscriptionCost, category.subscriptionCost) && Objects.equals(logo, category.logo) && Objects.equals(newsList, category.newsList) && Objects.equals(subscriptions, category.subscriptions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryId, categoryName, subscriptionCost, newsList, subscriptions);
+        return Objects.hash(categoryId, categoryName, subscriptionCost, logo, newsList, subscriptions);
     }
 }

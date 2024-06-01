@@ -21,6 +21,7 @@ import java.util.List;
  * /subscriptions/getSubscriptionsByUserId/{id} (GET)
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/subscriptions")
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;

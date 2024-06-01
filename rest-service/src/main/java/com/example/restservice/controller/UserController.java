@@ -21,6 +21,7 @@ import java.util.List;
  * /users/login (POST)
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
@@ -106,12 +107,14 @@ public class UserController {
      * @return ResponseEntity care contine un mesaj de confirmare si statusul HTTP corespunzator.
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
         User existingUser = userService.getUserByUsername(user.getUsername());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return new ResponseEntity<>("Autentificare reușită", HttpStatus.OK);
+            // Autentificare reușită, returnează utilizatorul
+            return new ResponseEntity<>(existingUser, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Autentificare eșuată", HttpStatus.UNAUTHORIZED);
+            // Autentificare eșuată, returnează null
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
     }
 

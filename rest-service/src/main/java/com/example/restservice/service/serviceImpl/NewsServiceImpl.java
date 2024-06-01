@@ -9,8 +9,10 @@ import com.example.restservice.observer.UserNotification;
 import com.example.restservice.observer.EmailService;
 import com.example.restservice.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +73,7 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public News createNews(News news) {
+        news.setPublishedAt(LocalDate.now());
         News createdNews = newsContract.save(news);
         createObserver(news);
         notifyObservers(createdNews);
@@ -125,6 +128,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<User> getUsersByNewsId(Long newsId) {
         return newsContract.findUsersByNewsId(newsId);
+    }
+
+    @Override
+    public List<News> findTop3ByOrderByPublishedAtDesc(Pageable pageable) {
+        return this.newsContract.findTop3ByOrderByPublishedAtDesc(pageable);
     }
 
     /**

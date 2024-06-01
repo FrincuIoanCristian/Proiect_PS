@@ -2,6 +2,7 @@ package com.example.restservice.repository;
 
 import com.example.restservice.model.News;
 import com.example.restservice.model.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             "INNER JOIN c.newsList n " +
             "WHERE n.newsId = :newsId")
     List<User> findUsersByNewsId(Long newsId);
+
+    @Query(value = "SELECT n FROM News n ORDER BY n.publishedAt DESC")
+    List<News> findTop3ByOrderByPublishedAtDesc(Pageable pageable);
 }

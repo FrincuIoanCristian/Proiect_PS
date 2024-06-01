@@ -4,6 +4,7 @@ import com.example.restservice.model.News;
 import com.example.restservice.model.User;
 import com.example.restservice.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.List;
  * /news/getUsersByNewsId/{id} (GET)
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/news")
 public class NewsController {
     private final NewsService newsService;
@@ -119,5 +121,15 @@ public class NewsController {
     @GetMapping("/getUsersByNewsId/{id}")
     public List<User> getUsersByNewsId(@PathVariable long id) {
         return newsService.getUsersByNewsId(id);
+    }
+
+    @GetMapping("/latest-news")
+    public ResponseEntity<List<News>> getLatestNews() {
+        List<News> latestNews = newsService.findTop3ByOrderByPublishedAtDesc(PageRequest.of(0, 3));
+        if (latestNews != null && !latestNews.isEmpty()) {
+            return new ResponseEntity<>(latestNews, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

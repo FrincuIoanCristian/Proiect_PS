@@ -1,0 +1,268 @@
+/* Background image styling */
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+  }
+  
+  /* Background image styling */
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+  }
+  
+  /* Positioning the search container */
+  .search-container {
+    position: absolute;
+    top: 70px; /* Adjust this value to move the search bar vertically */
+    left: 750px; /* Adjust this value to move the search bar horizontally */
+    transform: translate(-50%, 0); /* Center horizontally based on left value */
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-container input[type="text"] {
+    width: 300px;
+    padding: 10px 40px 10px 10px; /* Padding to make space for the icon */
+    border-radius: 15px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border styling */
+    box-sizing: border-box;
+  }
+  
+  .search-container button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    left: calc(100% - 40px); /* Position the button to the right */
+    cursor: pointer;
+  }
+  
+  .search-container button i {
+    color: #000; /* Color of the search icon */
+  }
+  
+  .search-container button:hover {
+    background-color: transparent;
+  }
+  
+  .search-results-container {
+    position: absolute;
+    top: 110px; /* Adjust this value to move the search results vertically */
+    left: 600px; /* Adjust this value to align the search results horizontally */
+    width: 300px; /* Adjust this value to change the width of the search results */
+  }
+  
+  .search-results {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for a more elevated look */
+    border-radius: 0 0 15px 15px; /* Rounded corners at the bottom */
+  }
+  
+  .search-results ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-results li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee; /* Add separator line */
+  }
+  
+  .search-results li:last-child {
+    border-bottom: none; /* Remove separator from the last item */
+  }
+  
+  .search-results li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .profile-icon {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    width: 80px;
+    height: 80px;
+    /* background: url('E:/frontEndSiteWeb/src/assets/images/user.png') no-repeat center center; */
+    background-size: contain;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  .profile-icon:hover {
+    border-color: red;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 60px; /* Ajustează această valoare pentru a potrivi meniul */
+    left: 150px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px; /* Ajustează lățimea meniului */
+  }
+  
+  .dropdown-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dropdown-menu li:last-child {
+    border-bottom: none;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .user-details {
+    background-color: rgba(255, 255, 255, 0.8); /* Alb transparent */
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    padding: 24px; /* Mai mică */
+    margin-top: 40px;
+    font-size: 24px; /* Mai mică */
+    width: 20%; /* Setează lățimea dorită */
+    margin-left: 140px;
+    margin-right: auto; /* Centrează elementul */
+  }
+  
+  .user-details p {
+    margin: 5px 0; /* Mai mică */
+    font-size: 16px; /* Mai mică */
+  }
+  
+  .user-details p strong {
+    font-weight: bold;
+  }
+  
+  .back-button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .back-button i {
+    margin-right: 5px;
+  }
+  
+  .restaurant-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 220px; /* Adăugăm un spațiu de 250px deasupra containerului */
+  }
+  
+  .restaurant-details {
+    position: relative; /* Adăugăm poziționare relativă pentru a folosi absolute pentru butoane */
+    flex: 0 1 calc(33.333% - 10px); /* Trei pe rând cu un mic spațiu între ele */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Creștem spațiul de jos pentru umbră */
+    text-align: center; /* Centrează conținutul în interior */
+    transition: transform 0.3s; /* Tranziție pentru efectul de hover */
+  }
+  
+  .restaurant-details:hover {
+    transform: translateY(-15px); /* Mută întreaga imagine și butonul în sus la hover */
+  }
+  
+  .restaurant-image {
+    width: 320px; /* Lățimea imaginii */
+    height: 210px; /* Înălțimea imaginii */
+    object-fit: cover;
+    display: block;
+    margin: 0 auto; /* Centrarea imaginii */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efect de umbră pentru senzația de plutire */
+    border-radius: 8px; /* Rotunjirea colțurilor imaginii */
+  }
+  
+  .restaurant-button {
+    position: absolute; /* Poziționează butonul absolut */
+    bottom: 0px; /* Poziționează butonul la o mică distanță de la marginea de jos a imaginii */
+    left: 50%; /* Alinierea butonului pe axa orizontală la jumătatea imaginii */
+    transform: translateX(-50%); /* Centrarea butonului pe axa orizontală */
+    width: 66%; /* Butonul să fie 90% din lățimea imaginii */
+    padding: 10px 0; /* Adăugăm padding pentru buton */
+    background-color: rgba(0, 123, 255, 0.7); /* Culoarea de fundal transparentă */
+    color: white; /* Culoarea textului */
+    border: none; /* Fără border */
+    border-radius: 4px; /* Rotunjirea colțurilor butonului */
+    cursor: pointer; /* Cursor de pointer la hover */
+    transition: background-color 0.3s, opacity 0.3s; /* Tranziție pentru efect de hover */
+  }
+  
+  .restaurant-button:hover {
+    background-color: rgba(5, 5, 5, 0.9); /* Culoarea de fundal mai puțin transparentă la hover */
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }

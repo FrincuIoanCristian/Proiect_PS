@@ -20,6 +20,7 @@ import java.util.List;
  * /imagesgetImagesByNewsId/{id} (GET)
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/images")
 public class ImageController {
     private final ImageService imageService;

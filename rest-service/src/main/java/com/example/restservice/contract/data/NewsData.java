@@ -5,6 +5,7 @@ import com.example.restservice.model.News;
 import com.example.restservice.model.User;
 import com.example.restservice.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -93,4 +94,11 @@ public class NewsData implements NewsContract {
     public List<User> findUsersByNewsId(Long newsId) {
         return this.newsRepository.findUsersByNewsId(newsId);
     }
+
+    @Override
+    public List<News> findTop3ByOrderByPublishedAtDesc(Pageable pageable) {
+        return this.newsRepository.findTop3ByOrderByPublishedAtDesc(pageable);
+    }
+
+
 }

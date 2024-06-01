@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+.header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #333;
+}
+.header button {
+    margin-right: 10px;
+    padding: 10px;
+    color: white;
+    background-color: #555;
+    border: none;
+    cursor: pointer;
+}
+.add-button .table-container button{
+    margin-top: 20px;
+    margin-right: 10px;
+    height: 50px;
+    width: 130px;
+    color: white;
+    background-color: #555;
+    border: none;
+    cursor: pointer;
+} 
+.header button:hover {
+    background-color: #777;
+}
+.content {
+    padding: 20px;
+}
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+.news-item button, .image-item button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    cursor: pointer;
+}
+.news-item button:hover, .image-item button:hover {
+    background-color: #0056b3;
+}

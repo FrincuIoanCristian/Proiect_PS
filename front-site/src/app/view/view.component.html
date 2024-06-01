@@ -1,0 +1,29 @@
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Știri</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="news">
+          <div *ngFor="let news of newsList; let i = index" class="restaurant-details">
+            <a [routerLink]="['/news', news.newsId]">
+            <article class="news-item">
+              <h2>{{news.title}}</h2>
+              <hr>
+              <img [src]="news.category.logo">
+          </article>
+            </a>
+          </div>
+        </section>
+    </main>
+</body>
+</html>
