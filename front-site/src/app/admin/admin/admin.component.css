@@ -2,63 +2,161 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-size: cover;
+    background: url("https://wallup.net/wp-content/uploads/2019/09/831551-soccer-sports-sport-poster.jpg") no-repeat center center fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
 .header {
     display: flex;
     justify-content: flex-start;
     padding: 10px;
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.8);
+    backdrop-filter: blur(10px);
 }
+
 .header button {
     margin-right: 10px;
     padding: 10px;
     color: white;
-    background-color: #555;
+    background-color: rgba(85, 85, 85, 0.8);
     border: none;
     cursor: pointer;
+    border-radius: 10px;
 }
-.add-button .table-container button{
+
+.add-button .table-container button {
     margin-top: 20px;
     margin-right: 10px;
     height: 50px;
     width: 130px;
     color: white;
-    background-color: #555;
+    background-color: rgba(85, 85, 85, 0.8);
     border: none;
     cursor: pointer;
-} 
-.header button:hover {
-    background-color: #777;
+    border-radius: 10px;
 }
+
+.header button:hover {
+    background-color: rgba(119, 119, 119, 0.8);
+}
+
 .content {
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 .table-container {
     width: 100%;
     overflow-x: auto;
 }
+
+
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
+
 th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
 th {
-    background-color: #f2f2f2;
+    background-color: rgba(242, 242, 242, 0.8);
 }
+
 .news-item button, .image-item button {
     margin-left: 10px;
     padding: 5px 10px;
     color: white;
-    background-color: #007BFF;
+    background-color: rgba(0, 123, 255, 0.8);
     border: none;
     cursor: pointer;
+    
 }
+
 .news-item button:hover, .image-item button:hover {
-    background-color: #0056b3;
+    background-color: rgba(0, 86, 179, 0.8);
+}
+
+/* Styling for add category, news, and image forms */
+.add-container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.add-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.add-container input, .add-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.add-container textarea{
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.add-container button {
+    padding: 20px 50px;
+    margin: 20px;
+    color: white;
+    background-color: rgba(85, 85, 85, 0.8);
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.add-container button:hover {
+    background-color: rgba(119, 119, 119, 0.8);
+}
+
+.table-container button{
+    padding: 20px 50px;
+    color: white;
+    background-color: rgba(85, 85, 85, 0.8);
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.table-container button:hover{
+    background-color: rgba(119, 119, 119, 0.8);
 }

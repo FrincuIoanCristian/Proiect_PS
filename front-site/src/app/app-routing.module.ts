@@ -19,10 +19,12 @@ const routes: Routes = [
   { path: 'admin-panel', component: PanelComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'profil/:id', component: PrincipalComponent},
-  { path: 'profil/date/:id', component: DateComponent},
+  { path: 'stiri/:id', component: DateComponent},
   { path: 'profil/edit/:id', component: EditComponent},
   { path: 'view', component: ViewComponent},
   { path: 'news/:id', component: NewsComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

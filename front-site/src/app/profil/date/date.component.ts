@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User, UserService } from '../../service/user.service';
 import { __param } from 'tslib';
+import { Category, CategoryService } from '../../service/category.service';
+import { News, NewsService } from '../../service/news.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-date',
@@ -9,26 +11,39 @@ import { __param } from 'tslib';
   styleUrl: './date.component.css'
 })
 export class DateComponent implements OnInit{
-  user: User = {userId: 0, username: '', password: '', email: '', fullName: '', avatar: '', balance: 0 };
+  category: Category = {categoryId: 0, categoryName: '', subscriptionCost: 0, logo: ''};
+  newsList: News[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
+
+  constructor(private location: Location, private router: Router, private route: ActivatedRoute, private newsService: NewsService,private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const userId = +params['id']; 
-      this.userService.getUserById(userId).subscribe(
-        user => {
-          this.user = user;
+      const categoryId = +params['id']; 
+      this.categoryService.getCategoryById(categoryId).subscribe(
+        category => {
+          this.category = category;
+          console.log('Detalii categorie:', this.category);
+          this.newsService.getNewsByCategoryName(category.categoryName).subscribe(
+            news => {
+              this.newsList = news;
+              console.log("Stiri: ", news);
+            },
+            error =>{
+              console.error('Eroare la obținerea stirilor:', error);
+            }
+          )
         },
         error => {
-          console.error('Eroare la obținerea detalilor utilizatorului:', error);
+          console.error('Eroare la obtinerea detaliilor despre categorie:', error);
         }
       );
-    });
+    });  
   }
 
-  goToEdit(){
-    const userId = this.user?.userId;
-    this.router.navigate([`/profil/edit/${userId}`]);
+  goToBack(){
+    this.location.back();
   }
+
+  
 }

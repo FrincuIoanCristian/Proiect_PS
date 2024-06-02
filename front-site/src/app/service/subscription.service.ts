@@ -6,7 +6,7 @@ import { Category } from './category.service';
 
 // Definirea interfeței Subscription
 export interface Subscription {
-  subscriptionId?: number;
+  subscriptionId: number;
   user: User;
   category: Category;
   startDate: string; // LocalDate este reprezentat ca string în JSON

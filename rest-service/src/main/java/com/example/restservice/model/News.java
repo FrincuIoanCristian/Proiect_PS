@@ -38,7 +38,7 @@ public class News {
     @Column(name = "published_at")
     private LocalDate publishedAt;
 
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)

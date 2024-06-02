@@ -1,0 +1,137 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9b9ba3;
+  background-size: cover;
+  filter: blur(3px); /* Aplică efectul de blur */
+  z-index: -1; /* Asigură că este în spatele conținutului principal */
+}
+
+.news-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .news-container .logo-cat{
+    left: 20px;
+    top:20px;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .back-button {
+    align-self: flex-start;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .news-title {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .news-image {
+    max-width: 100%;
+    font-size: 40px;
+    height: 500;
+    width: 500;
+    margin-bottom: 20px;
+  }
+  
+  .news-content {
+    font-size: 23px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .image-carousel {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .carousel-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .carousel-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 20px;
+  }
+  
+  .carousel-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  /*  */
+ .slider {
+    position: relative;
+    height: 600px;
+    width: 140%;
+  }
+  
+ .slide {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .rightArrow {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 32px;
+    font-size: 45px;
+    color: #fff;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .leftArrow {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 32px;
+    font-size: 45px;
+    color: #fff;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .dotsContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .dot {
+    margin: 0 3px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .dot.active {
+    color: #000;
+  }
+  
+  

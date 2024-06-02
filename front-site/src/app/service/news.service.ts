@@ -10,6 +10,7 @@ export interface News {
   title: string;
   content: string;
   publishedAt: string;
+  image: string;
   // Alte câmpuri relevante
 }
 

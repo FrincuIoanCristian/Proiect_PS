@@ -3,6 +3,7 @@ import { NewsService, News } from '../../service/news.service';
 import { ImageService, Image } from '../../service/image.service';
 import { CategoryService, Category }  from '../../service/category.service';
 import { Router } from '@angular/router';
+import { getLocaleDateFormat } from '@angular/common';
 
 @Component({
   selector: 'app-admin-panel',
@@ -22,11 +23,12 @@ export class AdminComponent implements OnInit {
       category: {categoryId: 0, categoryName: '', subscriptionCost: 0, logo: ''},
       title: '',
       content: '',
-      publishedAt: ''
+      publishedAt: '',
+      image: ''
     },
     url: ''
   };
-  news: News = { newsId: 0, category: { categoryId: 0, categoryName: '', subscriptionCost: 0, logo: '' }, title: '', content: '', publishedAt: ''};
+  news: News = { newsId: 0, category: { categoryId: 0, categoryName: '', subscriptionCost: 0, logo: '' }, title: '', content: '', publishedAt: '', image: ''};
 
   showDropdown = false;
   notificationCount = 0;

@@ -1,16 +1,157 @@
-<!-- profile.component.html -->
-<div class="background-image">
-    <img src="assets/images/fundalPanel.png" alt="Background Image">
-    <div class="profile-icon" (click)="toggleDropdown()">
-      <span *ngIf="notificationCount > 0" class="notification-badge">{{ notificationCount }}</span>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard | By Code Info</title>
+    <link rel="stylesheet" href="principal.component.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a class="logo">
+            <img [src]="user.avatar || 'https://www.colorscab.com/wp-content/uploads/2023/07/NicePng_user-icon-png_1280406-1024x1024.png'" alt="">
+            <span class="nav-item">DashBoard</span>
+          </a></li>
+          <li><a (click)="setType('')">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Home</span>
+          </a></li>
+          <li><a (click)="setType('Profile')">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Profil</span>
+          </a></li>
+          <li><a (click)="setType('Edit')">
+            <i class="fas fa-wrench"></i>
+            <span class="nav-item">Edit Date</span>
+          </a></li>
+          <li><a (click)="setType('Abonamente')">
+            <i class="fas fa-chart-bar"></i>
+            <span class="nav-item">Abonamente</span>
+          </a></li>
+          <li><a (click)="setType('NewAbonament')">
+            <i class="fas fa-tasks"></i>
+            <span class="nav-item">Creaza Abonament</span>
+          </a></li>
+          <li><a class="wallet">
+            <i class="fas fa-wallet"></i>
+            <span class="nav-item">{{user.balance}} $</span>
+          </a></li>
+          <li><a href="/login" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Log out</span>
+          </a></li>
+        </ul>
+      </nav>
+  
+      <section class="main">
+        <!-- Abonamente -->
+        <div *ngIf="type === 'Abonamente'" class="main-top">
+          <h1>Abonamentele mele</h1>
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <div *ngIf="type === 'Abonamente'" class="main-skills">
+          <div *ngFor="let subscription of subscriptionsUser" class="card">
+            <img [src]="subscription.category.logo" alt="{{ subscription.category.categoryName }} logo" class="img-logo">
+            <h3>{{ subscription.category.categoryName }}</h3>
+            <p>{{subscription.startDate}}</p>
+            <button (click)="goToStiri(subscription.category.categoryId)" >Vezi stiri</button>
+            <hr>
+            <button (click)="deleteSubscription(subscription.subscriptionId)">Dezaboneaza</button>
+          </div>
+        </div>
+        <!-- Detalii profil -->
+        <div *ngIf="type === 'Profile'" class="main-top">
+          <h1>Detalii profil</h1>
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <div *ngIf="type === 'Profile'" class="main-skills">
+          <div class="wrapper">
+            <div class="left">
+                <img [src]="user.avatar || 'https://www.colorscab.com/wp-content/uploads/2023/07/NicePng_user-icon-png_1280406-1024x1024.png'" 
+                alt="user" width="200">
+                <h2>{{ user.username }}</h2>
+            </div>
+            <div class="right">
+                <div class="info">
+                    <h3>Full Name</h3>
+                    <div class="info_data">
+                         <div class="data">
+                            <h4>{{ user.fullName }}</h4>
+                         </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <h3>Email</h3>
+                    <div class="info_data">
+                         <div class="data">
+                            <h4>{{ user.email }}</h4>
+                         </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <h3>Balance</h3>
+                    <div class="info_data">
+                         <div class="data">
+                            <h4>{{ user.balance }}</h4>
+                         </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <h3>Password</h3>
+                    <div class="info_data">
+                         <div class="data">
+                            <h4>{{ user.password }}</h4>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Editare profil -->
+        <div *ngIf="type === 'Edit'" class="main-skills">
+          <div class="edit-form">
+            <h2>Edit Profile</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" [(ngModel)]="newUser.username" name="username" placeholder="Enter new username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" [(ngModel)]="newUser.email" placeholder="Enter new email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="newUser.password" placeholder="Enter new password" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" [(ngModel)]="newUser.fullName" placeholder="Enter new full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="avatar">Avatar URL</label>
+                    <input type="text" id="avatar" name="avatar" [(ngModel)]="newUser.avatar" placeholder="Enter new avatar URL">
+                </div>
+                <button type="submit"  (click)="modify()">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Creare abonament -->
+        <div *ngIf="type === 'NewAbonament'" class="main-top">
+          <h1>Creaza un abonament nou</h1>
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <div *ngIf="type === 'NewAbonament'" class="main-skills">
+          <div *ngFor="let category  of categories"  class="box">
+              <h3>{{category.categoryName}}</h3>
+              <p>{{category.subscriptionCost}}</p>
+              <button (click)="addSubscription(category)">Aboneaza-te</button>
+              <img [src]="category.logo" alt="{{ category.categoryName }} logo" class="img-logo">
+          </div></div>
+      </section>
     </div>
-    <div class="dropdown-menu" *ngIf="showDropdown">
-      <ul>
-        <li (click)="viewUserData()">Detalii cont</li>
-        <li >Comenzile mele</li>
-        <li>Suport Cont</li>
-        <li >Deconectează-te</li>
-      </ul>
-    </div>
-  </div>
-<button (click)="viewUserData()">Vizualizare date utilizator</button>
+  </body>

@@ -2,34 +2,94 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #f8f8f8;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-nav ul {
-    list-style: none;
+    background-color: #9b9ba3;;
+    /* background: url("https://wallup.net/wp-content/uploads/2019/09/831551-soccer-sports-sport-poster.jpg") no-repeat center center fixed; */
+    background-size: cover;
     display: flex;
-    justify-content: space-around;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
 }
 
-nav ul li {
-    margin: 0 10px;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-}
-
-main {
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.arr {
+    background: rgba(219, 207, 207, 0.8);
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 15px;
+    transition: 0.4s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.arr:hover {
+    box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.119);
+}
+
+.arr div {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-top: 8px solid #202020;
+    border-left: 8px solid #202020;
+    transform: rotate(45deg);
+    left: 27.5px;
+    top: 35px;
+}
+
+.left {
+    transform: rotate(-90deg);
+}
+
+.title {
+    font-size: 60px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: rgba(51, 51, 51, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.header button {
+    margin-right: 10px;
+    padding: 10px;
+    color: white;
+    background-color: rgba(85, 85, 85, 0.8);
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.header button:hover {
+    background-color: rgba(119, 119, 119, 0.8);
 }
 
 .news {
@@ -37,11 +97,22 @@ main {
     flex-direction: column;
 }
 
+.news-card {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .news-item {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ddd;
     padding: 20px 0;
+    border-bottom: 1px solid #ddd;
 }
 
 .news-item img {
@@ -52,7 +123,7 @@ main {
 
 .news-item h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
 }
 

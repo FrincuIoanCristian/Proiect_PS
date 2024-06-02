@@ -26,7 +26,8 @@ import { NewsComponent } from './news/news.component';
     DateComponent, 
     PrincipalComponent, 
     EditComponent, 
-    ViewComponent, NewsComponent, 
+    ViewComponent, 
+    NewsComponent, 
   ],
   imports: [
     BrowserModule,
