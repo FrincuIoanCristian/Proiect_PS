@@ -11,6 +11,7 @@ import { User } from '../service/user.service';
 export class LoginComponent {
   user: User = {userId: 0, username: '', password: '', email: '', fullName: '', avatar: '', balance: 0 };
   message : string = '';
+  invalid: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -18,7 +19,6 @@ export class LoginComponent {
     this.userService.login(this.user).subscribe(
       user => {
         if (user) {
-          console.log(user);
           const userId = user.userId;
           this.router.navigate([`/profil/${userId}`]);
         } else {
@@ -26,6 +26,7 @@ export class LoginComponent {
         }
       },
       error => {
+        this.invalid = true;
         console.error('Eroare la autentificare:', error);
         this.message = 'Autentificare eșuată';
       }

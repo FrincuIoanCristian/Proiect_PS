@@ -12,27 +12,35 @@
         <ul>
           <li><a class="logo">
             <img [src]="user.avatar || 'https://www.colorscab.com/wp-content/uploads/2023/07/NicePng_user-icon-png_1280406-1024x1024.png'" alt="">
-            <span class="nav-item">DashBoard</span>
+            <span class="nav-item">Meniu</span>
           </a></li>
           <li><a (click)="setType('')">
             <i class="fas fa-home"></i>
-            <span class="nav-item">Home</span>
+            <span class="nav-item">Acasa</span>
           </a></li>
           <li><a (click)="setType('Profile')">
             <i class="fas fa-user"></i>
             <span class="nav-item">Profil</span>
           </a></li>
           <li><a (click)="setType('Edit')">
-            <i class="fas fa-wrench"></i>
-            <span class="nav-item">Edit Date</span>
+            <i class="fas fa-pencil-alt"></i>
+            <span class="nav-item">Editeaza date</span>
           </a></li>
           <li><a (click)="setType('Abonamente')">
-            <i class="fas fa-chart-bar"></i>
+            <i class="fas fa-star"></i>
             <span class="nav-item">Abonamente</span>
           </a></li>
           <li><a (click)="setType('NewAbonament')">
-            <i class="fas fa-tasks"></i>
+            <i class="fas fa-bell"></i>
             <span class="nav-item">Creaza Abonament</span>
+          </a></li>
+          <li><a (click)="setType('ChangePassword')">
+            <i class="fas fa-lock"></i>
+            <span class="nav-item">Schima parola</span>
+          </a></li>
+          <li><a (click)="setType('StergeCont')">
+            <i class="fas fa-trash-alt"></i>
+            <span class="nav-item">Sterge cont</span>
           </a></li>
           <li><a class="wallet">
             <i class="fas fa-wallet"></i>
@@ -40,7 +48,7 @@
           </a></li>
           <li><a href="/login" class="logout">
             <i class="fas fa-sign-out-alt"></i>
-            <span class="nav-item">Log out</span>
+            <span class="nav-item">Deconecteaza-te</span>
           </a></li>
         </ul>
       </nav>
@@ -52,15 +60,18 @@
           <i class="fas fa-user-cog"></i>
         </div>
         <div *ngIf="type === 'Abonamente'" class="main-skills">
-          <div *ngFor="let subscription of subscriptionsUser" class="card">
-            <img [src]="subscription.category.logo" alt="{{ subscription.category.categoryName }} logo" class="img-logo">
-            <h3>{{ subscription.category.categoryName }}</h3>
-            <p>{{subscription.startDate}}</p>
-            <button (click)="goToStiri(subscription.category.categoryId)" >Vezi stiri</button>
-            <hr>
-            <button (click)="deleteSubscription(subscription.subscriptionId)">Dezaboneaza</button>
+          <div class="abonamente-container">
+            <div *ngFor="let subscription of subscriptionsUser" class="abonament-card">
+              <img [src]="subscription.category.logo" alt="{{ subscription.category.categoryName }} logo" class="img-logo">
+              <h3>{{ subscription.category.categoryName }}</h3>
+              <p>{{subscription.startDate}}</p>
+              <button (click)="goToStiri(subscription.category.categoryId)">Vezi stiri</button>
+              <hr>
+              <button (click)="deleteSubscription(subscription.subscriptionId)">Dezaboneaza</button>
+            </div>
           </div>
         </div>
+        
         <!-- Detalii profil -->
         <div *ngIf="type === 'Profile'" class="main-top">
           <h1>Detalii profil</h1>
@@ -75,7 +86,7 @@
             </div>
             <div class="right">
                 <div class="info">
-                    <h3>Full Name</h3>
+                    <h3>Nume complet</h3>
                     <div class="info_data">
                          <div class="data">
                             <h4>{{ user.fullName }}</h4>
@@ -91,7 +102,7 @@
                     </div>
                 </div>
                 <div class="info">
-                    <h3>Balance</h3>
+                    <h3>Balanta</h3>
                     <div class="info_data">
                          <div class="data">
                             <h4>{{ user.balance }}</h4>
@@ -99,11 +110,17 @@
                     </div>
                 </div>
                 <div class="info">
-                    <h3>Password</h3>
+                    <h3>Parola</h3>
                     <div class="info_data">
-                         <div class="data">
-                            <h4>{{ user.password }}</h4>
-                         </div>
+                      <div class="data">
+                        <h4>
+                          <span *ngIf="!showPassword">********</span>
+                          <span *ngIf="showPassword">{{ user.password }}</span>
+                        </h4>
+                        <button (click)="togglePasswordVisibility()">
+                          {{ showPassword ? 'Ascunde' : 'Arata' }} Parola
+                        </button>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -113,29 +130,35 @@
         <!-- Editare profil -->
         <div *ngIf="type === 'Edit'" class="main-skills">
           <div class="edit-form">
-            <h2>Edit Profile</h2>
+            <h2>Editeaza datele personale</h2>
+            <h2 *ngIf="campuriGoale === true" >Nu ai completat niciun camp!!</h2>
             <form>
+                <div *ngIf="usernameExists === true" >Acest username exista deja!</div>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" [(ngModel)]="newUser.username" name="username" placeholder="Enter new username" required>
                 </div>
+                <div *ngIf="emailExists === true" >Acest email exista deja!</div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" [(ngModel)]="newUser.email" placeholder="Enter new email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" [(ngModel)]="newUser.password" placeholder="Enter new password" required>
-                </div>
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
+                    <label for="fullName">Nume Complet</label>
                     <input type="text" id="fullName" name="fullName" [(ngModel)]="newUser.fullName" placeholder="Enter new full name" required>
                 </div>
                 <div class="form-group">
-                    <label for="avatar">Avatar URL</label>
+                    <label for="avatar">URL avatar</label>
                     <input type="text" id="avatar" name="avatar" [(ngModel)]="newUser.avatar" placeholder="Enter new avatar URL">
                 </div>
-                <button type="submit"  (click)="modify()">Save Changes</button>
+                <hr>
+                <div class="form-group">
+                  <label for="password">Parola</label>
+                  <input type="password" id="password" name="password" [(ngModel)]="newUser.password" placeholder="Enter new password" required>
+                </div>
+                <div *ngIf="parolaLipsa === true" >Intro parola!</div>
+                <div *ngIf="parolaGresita === true" >Parola gresita!</div>
+                <button type="submit"  (click)="modify()">Salveaza Date</button>
             </form>
           </div>
         </div>
@@ -146,12 +169,49 @@
           <i class="fas fa-user-cog"></i>
         </div>
         <div *ngIf="type === 'NewAbonament'" class="main-skills">
-          <div *ngFor="let category  of categories"  class="box">
+          <div class="abonament-container">
+            <div *ngFor="let category of categories" class="abonament-box">
               <h3>{{category.categoryName}}</h3>
-              <p>{{category.subscriptionCost}}</p>
+              <p>{{category.subscriptionCost}}$</p>
               <button (click)="addSubscription(category)">Aboneaza-te</button>
               <img [src]="category.logo" alt="{{ category.categoryName }} logo" class="img-logo">
-          </div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schimba parola -->
+        <div *ngIf="type === 'ChangePassword'" class="main-skills">
+          <div class="edit-form">
+            <h2>Schimba parola</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Parola curenta</label>
+                    <input type="text" id="parolaCurenta" [(ngModel)]="parolaCurenta" name="parolaCurenta" placeholder="Introdu parola curenta" required>
+                    <div *ngIf="mesajParola === 'parolaIncorenta'">Parola gresita!</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Parola noua</label>
+                    <input type="password" id="parolaNoua" name="parolaNoua" [(ngModel)]="parolaNoua" placeholder="Intarodu parola noua" required>
+                    <div *ngIf="mesajParola === 'preaScurta'">Parola prea scurta!</div>
+                    <div *ngIf="mesajParola === 'same'">Nu poti pune aceeasi parola!</div>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Repeta parola noua</label>
+                    <input type="password" id="parolaNoua2" name="parolaNoua2" [(ngModel)]="parolaNoua2" placeholder="Repeta parola" required>
+                    <div *ngIf="mesajParola === 'different'">Nu sunt la fel!</div>
+                </div>
+                <button type="submit"  (click)="schimbaParola()">Schimba</button>
+            </form>
+          </div>
+        </div>
+        <!-- Sterge cont -->
+        <div *ngIf="type === 'StergeCont'" class="main-skills">
+          <div class="delete-form">
+            <h2>Șterge cont</h2>
+            <p>Esti sigur ca vrei sa stergi contul? Aceasta actiune este ireversibila.</p>
+            <button (click)="stergeCont()">Șterge contul</button>
+          </div>
+        </div>
       </section>
     </div>
   </body>

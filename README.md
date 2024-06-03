@@ -50,6 +50,7 @@
 * __category_id__ _(long, cheie primara, auto-increment)_: Identificator unic pentru fiecare categorie de stiri.
 * __category_name__ _(varchar)_: Numele categoriei de stiri (ex: fotbal, baschet, tenis etc.).
 * __subscription_cost__ _(double)_: Reprezinta pretul abonamentului pentru categoria respectiva
+* __logo__ _(string): Reprezinta url-ul imagini care reprezinta logo-ul sportului._
 
 
 ### 3. Tabela News :
@@ -165,6 +166,7 @@
 - __/news/{id}__ (DELETE) - sterge stirea cu id-ul respectiv 
 - __/news/getNewsByCategoryName__ (GET) - returneaza o lista de stiri care apartin unei categorii cu numele cautat.
 - __/news/getUsersByNewsId/{id}__ (GET) - returneaza o lista de utilizatori care sunt abonati la categoria din care face parte stirea cu id-ul respectiv
+- __/news/getLatestNews__ (GET) - returneaza ultimele stiri in functie de data.
 
 ### Image:
 - __/images__ (GET) - obtine lista cu toate imaginile
@@ -204,3 +206,216 @@ Am implementat teste pentu diferite pachete:
 - __Observer__ : _'EmailServiceTest'_. Am implemtat test pentru testarea metodei de trimitere de mail.
 
 ![Teste](Poze/teste.png)
+
+## Diagrame UML:
+
+### Diagrama UML User:
+![Teste](Poze/user_uml.png)
+
+### Diagrama UML User-Subscription-Category:
+![Teste](Poze/user_sub_cat.png)
+
+### Diagrama UML Category-News-Image:
+![Teste](Poze/image_news_category_uml.png)
+
+### Diagrama UML cu toate:
+![Teste](Poze/all_uml.png)
+
+
+# FrontEnd
+## Intruducere:
+  Acest document ofera o descriere detaliata a structurii si functionalitatilor frontend-ului pentru site-ul de stiri sportive realizat in Angular. Utilizatorii isi pot crea conturi, se pot autentifica, abona la categorii de stiri si gestiona profilul personal. Adminul poate adauga, edita si sterge articole de stiri, imagini, categorii si utilizatori.
+
+## Structura:
+> 
+    src/
+    |-- app/
+    |   |-- admin/
+    |   |   |-- admin/
+    |   |   |-- panel/
+    |   |-- home/
+    |   |-- login/   
+    |   |-- news/
+    |   |-- profil/
+    |   |   |-- date/
+    |   |   |-- principal/
+    |   |-- service/
+    |   |-- sign-up/
+    |   |-- view/
+    ...
+
+## Module și Componente
+### Admin:
+- Pentru admin am create 2 componente: admin si panel.
+- ___Panel___ este responsabil pentru autentificare, trebuie sa se introduca username-ul si parola adminului pentru a fi directionat catre pagina principala a Adminului.
+- ___Admin___ reprezinta pagina principala a adminului. Acolo adminul poate sa vizualizeze date despre utilizatori, categorii, stiri si imagini.
+- Pe langa asta el poate sa etiteze, modifica sau sa stearga date.
+
+### Home:
+- Este pagina in care se deschide site-ul.
+- Contine un titlu si 4 butoane, directiile catre care pagini se poate ajunge de la pagina de home.
+
+### Login:
+- Pagina de logare in profilul utilizatorului.
+- De pe aceasta pagina se poate ajunge inapoi la pagina de home sau naviga catre pagina de Sign-Up in cazul in care nu avem cont. 
+- Pentru logare se introduce username-ul si parola si se verifica daca exista un utilizator cu aceste date. In caz negativ se afiseaza un mesaj de eroare, altfel navigam catre profil.
+
+### News:
+- Reprezinta pagina care prezinta detaliile unei stiri.
+- Avem prezentat titlul, imaginea principala a stirii, continutul, iar la final, daca exista, se afla restul imaginilor asociate stirii.
+-Pe aceasta pagina se poate ajunge din 2 directii, deci si la intoarcere inapoi se poate duce in 2 directii.
+
+### Profil:
+- Este pagina principala a utilizatorului.
+- Are un meniu cu toate optiunile:
+  - vizualizare date;
+  - editare date cont: username-ul si email-ul trebuie sa fie diferita fata de restul urilizatorilor in BD;
+  - vizualizare abonamente detinute;
+  - creare de noi abonamente: poti sa iti creezi daca ai destui bani si daca nu ai deja abonament la categoria respectiva;
+  - schimbare parola: parola trebuie sa fie de minim 8 caractere si este necesara si vechea parola;
+  - stergere cont: te pune sa confirmi ca este de acord;
+  - balanta;
+  - deconectare;
+- Daca intri pe unul din abonamentele detinute te directioneaza catre o pagina unde sunt toate stirile din categoria respectiva.
+
+### Service:
+- Aici se face legatura cu endpoint-urile din backend;
+- Am declarat niste interfete cu aceleasi atribute ca si modelele din backend.
+> User
+    
+    export interface User {
+      userId: number;
+      username: string;
+      password: string;
+      email: string;
+      fullName: string;
+      avatar: string;
+      balance: number;
+      subscriptions?: Subscription[];
+    }
+
+> Subscription
+    
+    export interface Subscription {
+      subscriptionId: number;
+      user: User;
+      category: Category;
+      startDate: string; // LocalDate este reprezentat ca string în JSON
+      amountPaid: number;
+    }
+
+> News
+    
+    export interface News {
+      newsId: number;
+      category: Category;
+      title: string;
+      content: string;
+      publishedAt: string;
+      image: string;
+    }
+
+
+> Category
+    
+    export interface Category {
+      categoryId: number;
+      categoryName: string;
+      subscriptionCost: number;
+      logo: string;
+    }
+
+
+> Image
+    
+    export interface Image {
+      imageId: number;
+      news: News;
+      url: string;
+    }   
+
+- Pe langa aste am implementat functii care apaleaza endpoinr-urile din backend.
+
+### Sign-up:
+- In cazul in care nu ai cont iti poti crea unul nou.
+- Trebuie sa introduci date precum: username, email, nume complet, parola, balanta, avatar(poti pune un url catre o imagine).
+- Exista si verificari. Username-ul si email-ul nu trebuie sa se mai regaseacsa, numele nu poate lipsi, balanta trebuie sa fie mai mare de 0, iar parola trebuie sa aiba minim 8 caractere.
+- Daca totusi ai deja un cont poti sa mergi direct sa te loghezi la el.
+
+### View:
+- Aici sunt afisate ultimele stiri, cele mai recente, in functie de data.
+- Poti accesa pe oricare dintre ele sa vezi detaliile complete.
+
+## Rute:
+>
+    const routes: Routes = [
+      { path: '', component: HomeComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'sign-up', component: SignUpComponent},
+      { path: 'login', component: LoginComponent },
+      { path: 'admin-panel', component: PanelComponent},
+      { path: 'admin', component: AdminComponent},
+      { path: 'profil/:id', component: PrincipalComponent},
+      { path: 'stiri/:id', component: DateComponent},
+      { path: 'view', component: ViewComponent},
+      { path: 'news/:id', component: NewsComponent},
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: '**', redirectTo: '/home' }
+    ];
+
+## Poze:
+### Home:
+![Teste](Poze/home.png)
+### Admin:
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/admin1.png" alt="Imagine 1" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/admin2.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/admin3.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+</div>
+### Autentificare:
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/login.png" alt="Imagine 1" style="width: 50%; margin: 0 5px;">
+    <img src="Poze/signup.png" alt="Imagine 2" style="width: 50%; margin: 0 5px;">
+</div>
+
+### Profil:
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/profil1.png" alt="Imagine 1" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/profil2.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/profil3.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+</div>
+
+#
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/profil4.png" alt="Imagine 1" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/profil6.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/profil5.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+</div>
+
+### Stiri:
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/view.png" alt="Imagine 1" style="width: 50%; margin: 0 5px;">
+    <img src="Poze/stiri.png" alt="Imagine 2" style="width: 50%; margin: 0 5px;">
+</div>
+
+#
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Poze/stire1.png" alt="Imagine 1" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/stire2.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+    <img src="Poze/stire3.png" alt="Imagine 2" style="width: 33%; margin: 0 5px;">
+</div>
+
+
+## Use-case:
+### User:
+
+![Teste](Poze/user_use_case.png)
+
+### Admin:
+
+![Teste](Poze/admin_use_case.png)
+

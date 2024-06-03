@@ -11,7 +11,6 @@ import { PanelComponent } from './admin/panel/panel.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { DateComponent } from './profil/date/date.component';
 import { PrincipalComponent } from './profil/principal/principal.component';
-import { EditComponent } from './profil/edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { NewsComponent } from './news/news.component';
 
@@ -25,7 +24,6 @@ import { NewsComponent } from './news/news.component';
     AdminComponent, 
     DateComponent, 
     PrincipalComponent, 
-    EditComponent, 
     ViewComponent, 
     NewsComponent, 
   ],

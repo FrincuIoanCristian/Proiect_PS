@@ -11,9 +11,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("https://images.hdqwalls.com/download/cristiano-ronaldo-kicking-football-27-1600x1200.jpg");
+            background-image: url("https://img.aws.la-croix.com/2019/08/02/1201038998/Cinq-sports-redecouvrir_0_1399_793.jpg");
             background-size: cover;
-            filter: blur(10px); /* Aplică efectul de blur */
+            filter: blur(5px); /* Aplică efectul de blur */
             z-index: -1; /* Asigură că este în spatele conținutului principal */
         }
         *,
@@ -145,55 +145,55 @@
         <div class="shape"></div>
     </div>
     <form (ngSubmit)="register()" #signUpForm="ngForm">
-        <h3>SignUp Here</h3>
+        <h3>Creaza cont!</h3>
 
         <label for="username">Username</label>
         <input type="text" id="username" [(ngModel)]="user.username" name="username" placeholder="Username" required #username="ngModel">
         <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
-            Username is required.
+            Username-ul este necesar!
         </div>
         <div *ngIf="errorMessage === 'Username already exists.'" class="text-danger">
-            Username already exists.
+            Username invalid!
         </div>
 
         <label for="email">Email</label>
         <input type="email" id="email" [(ngModel)]="user.email" name="email" placeholder="Email" required #email="ngModel">
         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-            Valid email is required.
+            Email invalid!
         </div>
         <div *ngIf="errorMessage === 'Email already exists.'" class="text-danger">
-            Email already exists.
+            Acest email exista deja!
         </div>
 
-        <label for="password">Password</label>
+        <label for="password">Parola</label>
         <input type="password" id="password" [(ngModel)]="user.password" name="password" placeholder="Password" required #password="ngModel">
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-            Password is required and must be at least 8 characters.
+            Parola trebuie sa contina minim 8 caractere!
         </div>
 
-        <label for="fullname">Full Name</label>
+        <label for="fullname">Nume complet</label>
         <input type="text" id="fullname" [(ngModel)]="user.fullName" name="fullname" placeholder="Full Name" required #fullname="ngModel">
         <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)" class="text-danger">
-            Full Name is required.
+            Numele lipseste!
         </div>
 
-        <label for="balance">Balance</label>
+        <label for="balance">Balanta</label>
         <input type="number" id="balance" [(ngModel)]="user.balance" name="balance" placeholder="Balance" required #balance="ngModel">
         <div *ngIf="balance.invalid && (balance.dirty || balance.touched)" class="text-danger">
-            Balance is required and must be greater than 0.
+            Balanta trebuie sa fie mai mare decat 0!
         </div>
 
-        <label for="avatar">Avatar URL</label>
+        <label for="avatar">URL avatar</label>
         <input type="text" id="avatar" [(ngModel)]="user.avatar" name="avatar" placeholder="Avatar URL">
 
-        <button type="submit" [disabled]="signUpForm.invalid">Sign Up</button>
+        <button type="submit" [disabled]="signUpForm.invalid">Inregistreaza-te</button>
         <div *ngIf="formSubmitted && errorMessage" class="text-danger">
             {{ errorMessage }}
         </div>
         <div class="create-account">
-            <p>Already have an account? <a href="/login">Log In</a></p>
+            <p>Ai deja un cont? <a href="/login">Conecteaza-te</a></p>
             <h2 class="back-home">
-                <a href="/home">Go Home</a>
+                <a href="/home">Inapoi acasa</a>
             </h2>
         </div> 
     </form>

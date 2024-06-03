@@ -6,7 +6,6 @@ import { SignUpComponent} from './sign-up/sign-up.component';
 import { PanelComponent } from './admin/panel/panel.component';
 import { PrincipalComponent } from './profil/principal/principal.component';
 import { DateComponent } from './profil/date/date.component';
-import { EditComponent } from './profil/edit/edit.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { ViewComponent } from './view/view.component';
 import { NewsComponent } from './news/news.component';
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent},
   { path: 'profil/:id', component: PrincipalComponent},
   { path: 'stiri/:id', component: DateComponent},
-  { path: 'profil/edit/:id', component: EditComponent},
   { path: 'view', component: ViewComponent},
   { path: 'news/:id', component: NewsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },

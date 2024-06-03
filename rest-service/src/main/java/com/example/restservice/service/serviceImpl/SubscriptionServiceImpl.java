@@ -2,8 +2,10 @@ package com.example.restservice.service.serviceImpl;
 
 import com.example.restservice.contract.CategoryContract;
 import com.example.restservice.contract.SubscriptionContract;
+import com.example.restservice.contract.UserContract;
 import com.example.restservice.model.Category;
 import com.example.restservice.model.Subscription;
+import com.example.restservice.model.User;
 import com.example.restservice.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionContract subscriptionContract;
     private final CategoryContract categoryContract;
+    private final UserContract userContract;
 
     /**
      * Constructorul care injectează dependența către SubscriptionContract si CategoryContract
@@ -25,9 +28,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
      * @param categoryContract Contractul pentru gestionarea datelor de tipul Category
      */
     @Autowired
-    public SubscriptionServiceImpl(SubscriptionContract subscriptionContract, CategoryContract categoryContract) {
+    public SubscriptionServiceImpl(SubscriptionContract subscriptionContract, CategoryContract categoryContract, UserContract userContract) {
         this.subscriptionContract = subscriptionContract;
         this.categoryContract = categoryContract;
+        this.userContract = userContract;
     }
 
     /**
@@ -61,8 +65,13 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Subscription createSubscription(Subscription subscription) {
         subscription.setStartDate(LocalDate.now());
         Category category = categoryContract.findById(subscription.getCategory().getCategoryId()).orElse(null);
+        User user = userContract.findById(subscription.getUser().getUserId()).orElse(null);
         assert category != null;
         subscription.setAmountPaid(category.getSubscriptionCost());
+        assert user != null;
+        user.setBalance(user.getBalance()-subscription.getAmountPaid());
+        User save = userContract.save(user);
+        subscription.setUser(save);
 
         return subscriptionContract.save(subscription);
     }

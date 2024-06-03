@@ -1,26 +1,57 @@
 <div class="overlay"></div> <!-- Elementul care acoperă întreaga fereastră -->
 
 <div class="header">
-    <button (click)="logout()">Logout</button>
-    <button (click)="setType('Category')">Category</button>
-    <button (click)="setType('News')">News</button>
-    <button (click)="setType('Image')">Image</button>
+    <button (click)="logout()">Deconectare</button>
+    <button (click)="setType('User')">Utilizatori</button>
+    <button (click)="setType('Category')">Categorii</button>
+    <button (click)="setType('News')">Stire</button>
+    <button (click)="setType('Image')">Imagini</button>
 </div>
 <div class="add-button">
-    <div *ngIf="type !== '' && activateAdd === false" class="table-container">
-        <button (click)="activateButton()">Add</button>
+    <div *ngIf="type !== '' && type !=='User' && activateAdd === false" class="table-container">
+        <button (click)="activateButton()">Adauga</button>
     </div>   
 </div>
 <div class="content">
-    <div *ngIf="type === 'Category' && activateAdd === false" class="table-container">
+    <div *ngIf="type === 'User' && activateAdd === false && editFlag === false" class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Subscription Cost</th>
+                    <th>Avatar</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nume complet</th>
+                    <th>Bani</th>
+                    <th>Actiuni</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.userId }}</td>
+                    <td><img [src]="user.avatar" width="200" height="200"></td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.fullName }}</td>
+                    <td>{{ user.balance }}</td>
+                    <td>
+                        <button (click)="editButtonUser(user)">Editeaza</button>
+                        <button (click)="delete(category.categoryId)">Sterge</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="type === 'Category' && activateAdd === false && editFlag === false" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nume</th>
+                    <th>Cost abonament categorie</th>
                     <th>Logo</th>
-                    <th>Actions</th>
+                    <th>Actiuni</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,23 +61,23 @@
                     <td>{{ category.subscriptionCost }}</td>
                     <td><img [src]="category.logo" width="200" height="200"></td>
                     <td>
-                        <button (click)="editNews(category.categoryId)">Edit</button>
-                        <button (click)="delete(category.categoryId)">Delete</button>
+                        <button (click)="editButtonCategory(category)">Editeaza</button>
+                        <button (click)="delete(category.categoryId)">Sterge</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div *ngIf="type === 'News' && activateAdd === false" class="table-container">
+    <div *ngIf="type === 'News' && activateAdd === false && editFlag === false" class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Category</th>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Image</th>
-                    <th>Actions</th>
+                    <th>Categorie</th>
+                    <th>Titlu</th>
+                    <th>Data</th>
+                    <th>Imagine</th>
+                    <th>Actiuni</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,21 +88,21 @@
                     <td>{{ news.publishedAt }}</td>
                     <td><img [src]="news.image" width="200" height="200"></td>
                     <td>
-                        <button (click)="editNews(news.newsId)">Edit</button>
-                        <button (click)="delete(news.newsId)">Delete</button>
+                        <button (click)="editButtonNews(news)">Editeaza</button>
+                        <button (click)="delete(news.newsId)">Sterge</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div *ngIf="type === 'Image' && activateAdd === false" class="table-container">
+    <div *ngIf="type === 'Image' && activateAdd === false && editFlag === false" class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Image</th>
-                    <th>Actions</th>
+                    <th>Titlu</th>
+                    <th>Imagine</th>
+                    <th>Actiuni</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,8 +111,8 @@
                     <td>{{ image.news.title }}</td>
                     <td><img [src]="image.url" alt="{{ image.news.title }}" width="200" height="200"></td>
                     <td>
-                        <button (click)="editNews(image.imageId)">Edit</button>
-                        <button (click)="delete(image.imageId)">Delete</button>
+                        <button (click)="editButtonImage(image)">Editeaza</button>
+                        <button (click)="delete(image.imageId)">Sterge</button>
                     </td>
                 </tr>
             </tbody>
@@ -90,13 +121,13 @@
     <div *ngIf="activateAdd === true" class="add-container">
         <!-- Adaugare categorie -->
         <div *ngIf="type === 'Category'">
-            <button (click)="adaugaInBD()">Add</button>
+            <button (click)="adaugaInBD()">Adauga</button>
             <div>
-                <label for="categoryName">Category Name:</label>
+                <label for="categoryName">Nume categorie:</label>
                 <input type="text" id="categoryName" name="categoryName" [(ngModel)]="category.categoryName">
             </div>
             <div>
-                <label for="subscriptionCost">Subscription Cost:</label>
+                <label for="subscriptionCost">Cost abonament categorie:</label>
                 <input type="number" id="subscriptionCost" name="subscriptionCost" [(ngModel)]="category.subscriptionCost">
             </div>
             <div>
@@ -106,38 +137,104 @@
         </div>
         <!-- Adaugare stire -->
         <div *ngIf="type === 'News'">
-            <button (click)="adaugaInBD()">Add</button>
+            <button (click)="adaugaInBD()">Adauga</button>
             <div>
-                <label for="newsTitle">Title:</label>
+                <label for="newsTitle">Titlu:</label>
                 <input type="text" id="title" name="title" [(ngModel)]="news.title">
             </div>
             <div>
-                <label for="newsContent">Content:</label>
+                <label for="newsContent">Context:</label>
                 <textarea id="content" name="content" [(ngModel)]="news.content"></textarea>
             </div>
             <div>
-                <label for="url-image">Image URL:</label>
+                <label for="url-image">URL imagine:</label>
                 <input type="text" id="url" name="url" [(ngModel)]="news.image">
             </div>
             <div>
-                <label for="newsCategory">Category:</label>
+                <label for="newsCategory">Categorie:</label>
                 <select class="dropdown" id="newsCategory" name="newsCategory" [(ngModel)]="news.category">
-                    <option>--Select--</option>
+                    <option>--Selecteaza--</option>
                     <option *ngFor="let category of categories" [ngValue]="category">{{ category.categoryName }}</option>
                 </select>
             </div>
         </div>
         <!-- Adaugare imagine -->
         <div *ngIf="type === 'Image'">
-            <button (click)="adaugaInBD()">Add</button>
+            <button (click)="adaugaInBD()">Adauga</button>
             <div>
-                <label for="url-image">Image URL:</label>
+                <label for="url-image">URL imagine:</label>
                 <input type="text" id="url" name="url" [(ngModel)]="image.url">
             </div>
             <div>
-                <label for="NewsImage">News:</label>
+                <label for="NewsImage">Stire:</label>
                 <select class="dropdown" id="news" name="news" [(ngModel)]="image.news">
+                    <option>--Selecteaza--</option>
+                    <option *ngFor="let news of newsList" [ngValue]="news">{{ news.title }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Edit -->
+    <div *ngIf="editFlag" class="add-container">
+        <!-- Editare categorie -->
+        <div *ngIf="type === 'User'">
+            <button (click)="editeaza()">Editeaza</button>
+            <div>
+                <label for="balance">Balanta:</label>
+                <input type="number" id="balance" name="balance" [(ngModel)]="user2.balance">
+            </div>
+        </div>
+        <!-- Editare categorie -->
+        <div *ngIf="type === 'Category'">
+            <button (click)="editeaza()">Editeaza</button>
+            <div>
+                <label for="categoryName">Nume categorie:</label>
+                <input type="text" id="categoryName" name="categoryName" [(ngModel)]="category2.categoryName">
+            </div>
+            <div>
+                <label for="subscriptionCost">Cost abonament categorie:</label>
+                <input type="number" id="subscriptionCost" name="subscriptionCost" [(ngModel)]="category2.subscriptionCost">
+            </div>
+            <div>
+                <label for="logo">Logo:</label>
+                <input type="text" id="logo" name="logo" [(ngModel)]="category2.logo">
+            </div>
+        </div>
+        <!-- Editare stire -->
+        <div *ngIf="type === 'News'">
+            <button (click)="editeaza()">Editeaza</button>
+            <div>
+                <label for="newsTitle">Titlu:</label>
+                <input type="text" id="title" name="title" [(ngModel)]="news2.title">
+            </div>
+            <div>
+                <label for="newsContent">Context:</label>
+                <textarea id="content" name="content" [(ngModel)]="news2.content"></textarea>
+            </div>
+            <div>
+                <label for="url-image">URL imagine:</label>
+                <input type="text" id="url" name="url" [(ngModel)]="news2.image">
+            </div>
+            <div>
+                <label for="newsCategory">Categorie:</label>
+                <select class="dropdown" id="newsCategory" name="newsCategory" [(ngModel)]="news2.category">
                     <option>--Select--</option>
+                    <option *ngFor="let category of categories" [ngValue]="category">{{ category.categoryName }}</option>
+                </select>
+            </div>
+        </div>
+        <!-- Editare imagine -->
+        <div *ngIf="type === 'Image'">
+            <button (click)="editeaza()">Editeaza</button>
+            <div>
+                <label for="url-image">URL imagine:</label>
+                <input type="text" id="url" name="url" [(ngModel)]="image2.url">
+            </div>
+            <div>
+                <label for="NewsImage">Stire:</label>
+                <select class="dropdown" id="news" name="news" [(ngModel)]="image2.news">
+                    <option>--Selecteaza--</option>
                     <option *ngFor="let news of newsList" [ngValue]="news">{{ news.title }}</option>
                 </select>
             </div>

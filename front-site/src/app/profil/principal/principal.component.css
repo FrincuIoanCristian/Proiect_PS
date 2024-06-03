@@ -16,7 +16,7 @@
   height: 100%;
   background-image: url("https://img.aws.la-croix.com/2019/08/02/1201038998/Cinq-sports-redecouvrir_0_1399_793.jpg");
   background-size: cover;
-  filter: blur(10px); 
+  filter: blur(5px); 
   z-index: -1; 
 }
 .container{
@@ -29,7 +29,7 @@ nav{
   height: 100vh;
   left: 0;
   background: #fff;
-  width: 280px;
+  width: 350px;
   overflow: hidden;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
@@ -94,6 +94,9 @@ a:hover{
 .main-top{
   display: flex;
   width: 100%;
+}
+.main-top h1{
+  color: white;
 }
 .main-top i{
   position: absolute;
@@ -300,6 +303,21 @@ a:hover{
   color: #919aa3;
 }
 
+.wrapper .right .info_data .data button{
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to right, #01a9ac, #01dbdf);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.wrapper .right .info_data .data button:hover{
+  background: linear-gradient(to right, #01dbdf, #01a9ac);
+}
+
 .edit-form {
   width: 500px;
   margin: 100px auto;
@@ -345,4 +363,142 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background: linear-gradient(to right, #01dbdf, #01a9ac);
+}
+
+.delete-form {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 500px;
+  margin: 100px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.delete-form h2 {
+  margin-bottom: 20px;
+}
+
+.delete-form p {
+  margin-bottom: 20px;
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.delete-form button {
+  background: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-form button:hover {
+  background: #c9302c;
+}
+.abonament-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.abonament-box {
+  width: calc(33.333% - 20px); /* Ajustează lățimea fiecărui panel */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  background: #fff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.abonament-box h3 {
+  margin: 20px;
+  font-size:30px;
+  text-transform: capitalize;
+}
+
+.abonament-box p {
+  font-size: 50px;
+  position: absolute;
+  margin-left: 30px;
+}
+
+.abonament-box .img-logo {
+  position: relative;
+  margin-right: 40px;
+  width: 100px;
+  height: 100px;
+}
+
+.abonament-box button {
+  background: orangered;
+  color: #fff;
+  padding: 7px 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.abonament-box button:hover {
+  background: rgba(0, 0, 0, 0.842);
+}
+
+.abonamente-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px; /* Spațiu între panouri */
+}
+
+.abonament-card {
+  flex: 1 1 calc(33.333% - 20px); /* Flex-grow, flex-shrink, flex-basis pentru a permite 3 pe rând */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  background: #fff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.abonament-card h3 {
+  margin: 10px 0;
+  text-transform: capitalize;
+}
+
+.abonament-card p {
+  font-size: 12px;
+}
+
+.abonament-card .img-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover; /* Asigură că imaginea nu depășește dimensiunea */
+  margin-bottom: 10px;
+}
+
+.abonament-card button {
+  background: orangered;
+  color: #fff;
+  padding: 7px 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.abonament-card button:hover {
+  background: rgba(0, 0, 0, 0.842);
+}
+
+.abonament-card hr {
+  width: 80%;
+  margin: 15px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
 }

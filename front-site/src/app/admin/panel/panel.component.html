@@ -153,14 +153,14 @@ button{
 
         <label for="username">Username</label>
         <input type="text" placeholder="Username" id="username" name="username" [(ngModel)]="username">
-        <div *ngIf="type === 'Username'">Invalid username Admin!!</div>
+        <div *ngIf="type === 'Username'">Username gresit Admin!!</div>
 
-        <label for="password">Password</label>
+        <label for="password">Parola</label>
         <input type="password" placeholder="Password" id="password" name="password" [(ngModel)]="password">
-        <div *ngIf="type === 'Password'">Invalid password Admin!!</div>
+        <div *ngIf="type === 'Password'">Parola gresita Admin!!</div>
         <div>
-            <button (click)="login()">Log In</button>
-            <button (click)="goToHome()">Back</button>
+            <button (click)="login()">Conectare</button>
+            <button (click)="goToHome()">Inapoi</button>
         </div>
     </form>
 </body>

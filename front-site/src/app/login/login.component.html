@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Glassmorphism login Form Tutorial in html css</title>
@@ -13,9 +12,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("https://wallup.net/wp-content/uploads/2019/09/831551-soccer-sports-sport-poster.jpg");
+            background-image: url("https://img.aws.la-croix.com/2019/08/02/1201038998/Cinq-sports-redecouvrir_0_1399_793.jpg");
             background-size: cover;
-            filter: blur(10px); /* Aplică efectul de blur */
+            filter: blur(5px); /* Aplică efectul de blur */
             z-index: -1; /* Asigură că este în spatele conținutului principal */
         }
         *,
@@ -171,19 +170,19 @@
     <div class="shape"></div>
 </div>
 <form>
-    <h3>Login Here</h3>
-
+    <h3>Conecteaza-te aici</h3>
+    <h2 *ngIf="invalid">Date invalide</h2>
     <label for="username">Username</label>
-    <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" required>
+    <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" placeholder="Username" required>
 
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" required>
+    <label for="password">Parola</label>
+    <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" placeholder="Parola" required>
 
-    <button (click)="login()">Log In</button>
+    <button (click)="login()">Conectare</button>
     <div class="create-account">
         <p>Nu ai cont? <a href = "/sign-up">Creaza un cont!</a></p>
         <h2 class="back-home">
-            <a href="/home">Go Home</a>
+            <a href="/home">Inapoi acasa</a>
         </h2>
     </div> 
 </form>

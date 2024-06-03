@@ -1,13 +1,79 @@
 .overlay {
-  position: fixed;
-  top: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(56, 65, 65);
+    background-size: cover;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.arr {
+  height: 100px;
+  width: 100px;
+  transition: 0.4s ease;
+  position: absolute;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #9b9ba3;
-  background-size: cover;
-  filter: blur(3px); /* Aplică efectul de blur */
-  z-index: -1; /* Asigură că este în spatele conținutului principal */
+  cursor: pointer;
+  padding: 20px;
+  background-color: rgba(169, 167, 167, 0.3);
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.arr:hover {
+  box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.119);
+}
+
+.arr div {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border-top: 8px solid #202020;
+  border-left: 8px solid #202020;
+  transform: rotate(45deg);
+  left: 40px;
+  top: 35px;
+}
+
+.left {
+  transform: rotate(-90deg);
+}
+
+.title {
+  font-size: 50px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding-left: 20px;
+  position: relative;
+  margin-left: 200px;
+
+}
+
+.main {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    flex-grow: 1;
 }
 
 .news-container {
@@ -17,86 +83,71 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-  }
-  
-  .news-container .logo-cat{
+}
+
+.news-container h3{
+  width: 1300px;
+  color: white;
+  align-self: auto;
+}
+
+.logo-cat {
     left: 20px;
-    top:20px;
+    top: 20px;
     width: 100px;
     height: 100px;
-  }
-  
-  .back-button {
+}
+
+.back-button {
     align-self: flex-start;
-    background-color: rgb(0, 0, 0);
-    color: #fff;
+    background-color: rgba(169, 167, 167, 0.3);
+    color: #000;
     margin-bottom: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  .news-title {
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.back-button:hover {
+    background-color: rgba(169, 167, 167, 0.6);
+}
+
+.news-title {
     font-size: 40px;
     margin-bottom: 20px;
-  }
-  
-  .news-image {
+}
+
+.news-image {
     max-width: 100%;
-    font-size: 40px;
-    height: 500;
-    width: 500;
+    height: auto;
     margin-bottom: 20px;
-  }
-  
-  .news-content {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.news-content {
     font-size: 23px;
     line-height: 1.6;
     margin-bottom: 20px;
-  }
-  
-  .image-carousel {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .carousel-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .carousel-image {
-    max-width: 100%;
-    height: auto;
-    margin: 0 20px;
-  }
-  
-  .carousel-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
+}
 
-  /*  */
- .slider {
+.slider {
     position: relative;
     height: 600px;
     width: 140%;
-  }
-  
- .slide {
+}
+
+.slide {
     width: 100%;
     height: 100%;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
-  }
-  
-  .rightArrow {
+}
+
+.rightArrow {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -105,9 +156,9 @@
     color: #fff;
     z-index: 1;
     cursor: pointer;
-  }
-  
-  .leftArrow {
+}
+
+.leftArrow {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -116,22 +167,20 @@
     color: #fff;
     z-index: 1;
     cursor: pointer;
-  }
-  
-  .dotsContainer {
+}
+
+.dotsContainer {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-  }
-  
-  .dot {
+}
+
+.dot {
     margin: 0 3px;
     cursor: pointer;
     font-size: 20px;
-  }
-  
-  .dot.active {
+}
+
+.dot.active {
     color: #000;
-  }
-  
-  
+}

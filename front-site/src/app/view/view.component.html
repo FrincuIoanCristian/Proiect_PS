@@ -12,7 +12,7 @@
     <div class="overlay"></div>
     <div class="container">
         <div class="arr left" (click)="gotoHome()"><div></div></div>
-        <h1 class="title">New News</h1>
+        <h1 class="title">Ultimele Stiri</h1>
     </div>
         <section class="news">
             <div *ngFor="let news of newsList; let i = index" class="news-card">
@@ -22,7 +22,7 @@
                         <hr>
                         <h2>{{news.publishedAt}}</h2>
                         <hr>
-                        <h2>{{news.title}}</h2>
+                        <h3>{{news.title}}</h3>
                         <hr>
                         <img [src]="news.image">
                     </article>

@@ -24,7 +24,6 @@ export class SignUpComponent {
     console.log("User = ", this.user);
     if (this.isFormValid()) {
       this.userService.getAllUsers().subscribe(users => {
-        console.log(users);
         const usernameExists = users.some(u => u.username === this.user.username);
         const emailExists = users.some(u => u.email === this.user.email);
 
@@ -56,7 +55,7 @@ export class SignUpComponent {
            this.user.password.length >= 8 &&
            this.user.email !== '' &&
            this.user.fullName !== '' &&
-           this.user.balance > 0;
+           this.user.balance >= 0;
   }
 
   goToHome() {

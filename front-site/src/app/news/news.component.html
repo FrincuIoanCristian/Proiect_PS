@@ -1,35 +1,34 @@
 <div class="overlay"></div>
-<div class="news-container">
-    <img class="logo-cat" [src]="news.category.logo" >
-    <button class="back-button" (click)="goToBack()">Back</button>
-  
-    <h1 class="news-title">{{ news.title }}</h1>
-  
-    <img class="news-image" [src]="news.image" alt="News Image">
-  
-    <h3 class="news-content">{{ news.content }}</h3>
-  
-    <div *ngIf="imageExist === true" class="slider">
-        <div>
-          <div (click)="previousImage()" class="leftArrow">❰</div>
-          <div (click)="nextImage()" class="rightArrow">❱</div>
+<div class="container">
+    <div class="arr left" (click)="goToBack()"><div></div></div>
+    <h1 class="title">{{ news.title }}</h1>
+    <!-- <img class="logo-cat" [src]="news.category.logo" alt="Category Logo"> -->
+</div>
+<main>
+    <div class="news-container">
+        <img class="news-image" [src]="news.image" alt="News Image">
+    
+        <h3 class="news-content">{{ news.content }}</h3>
+    
+        <div *ngIf="imageExist === true" class="slider">
+            <div>
+            <div (click)="previousImage()" class="leftArrow">❰</div>
+            <div (click)="nextImage()" class="rightArrow">❱</div>
+            </div>
+            <div
+            class="slide"
+            [ngStyle]="{ 'background-image': 'url(' + images[currentImageIndex].url + ')' }"
+            ></div>
+            <div class="dotsContainer">
+            <div
+                *ngFor="let image of images; let imageIndex = index"
+                class="dot"
+                (click)="goToImage(imageIndex)"
+                [ngClass]="{ 'active': imageIndex === currentImageIndex }"
+            >
+                ●
+            </div>
+            </div>
         </div>
-        <div
-          class="slide"
-          [ngStyle]="{ 'background-image': 'url(' + images[currentImageIndex].url + ')' }"
-        ></div>
-        <div class="dotsContainer">
-          <div
-            *ngFor="let image of images; let imageIndex = index"
-            class="dot"
-            (click)="goToImage(imageIndex)"
-            [ngClass]="{ 'active': imageIndex === currentImageIndex }"
-          >
-            ●
-          </div>
-        </div>
-      </div>
-  </div>
-
-  
-  
+    </div>
+</main>
